@@ -59,7 +59,7 @@ apiRouter.get('/issue/:id', async (req, res) => {
         res.sendStatus(400);
     } else {
         try {
-            const data: IssueIF = await fetchIssue(parseInt(req.params.id, 10));
+            const data: IssueIF = await fetchIssue(id);
             res.json(data);
         } catch (error: any) {
             res.status(404).json({ message: error.message });

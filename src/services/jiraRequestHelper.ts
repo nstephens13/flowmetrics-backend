@@ -78,10 +78,6 @@ export async function fetchIssue(id: number) :Promise<IssueIF> {
     // return Promise.reject(err);
   }
 }
-//function to fetch a single issue with its key and expanded changelog
-export async function fetchProject(id: string) :Promise<ProjectIF> {
-    return mockdataproject
-}
 
 
 //function to get a variable amount of the newest created issue of a project with expanded changelog and sorted by date
@@ -100,4 +96,10 @@ export async function searchNewestIssues(projectKey: string, amount: number): Pr
 
     // return Promise.reject(err);
   }
+}
+
+//ToDo remove in further development
+//function to get the whole mockdataproject without asking jira first for dev purposes
+export async function fetchProject(id: string) :Promise<ProjectIF> {
+  return mockdataproject
 }
