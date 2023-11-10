@@ -1,7 +1,7 @@
 {
-  "name": "untitled5",
+  "name": "flowmetrics-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Server that handle datastorage and crawling of data from REST Apis",
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",
