@@ -6,7 +6,9 @@ import type { EmployeeIF } from '../model/EmployeeIF';
 import { parseEmployee, parseIssue } from './jiraResponseParser';
 import getMockData from "../__mockdata__/mockDataComposer";
 import {ProjectIF} from "../model/ProjectIF";
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const mockdataproject : ProjectIF = getMockData(4);
 
