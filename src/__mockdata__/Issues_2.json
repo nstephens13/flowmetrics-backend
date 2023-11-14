@@ -1,0 +1,241 @@
+[
+  {
+    "id": 14898,
+    "name": "Issue 1",
+    "description": "This is the first issue",
+    "assignedTo": null,
+    "createdBy": {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailAddress": "email@email.com",
+      "status": "active",
+            "assignedIssues": []
+    },
+    "createdAt": "2023-06-01T00:00:00.000Z",
+    "closedAt": null,
+    "dueTo": "2023-06-30T00:00:00.000Z",
+    "status": "Open",
+    "userStatus": "Open"
+  },
+  {
+    "id": 148093,
+    "name": "Issue 2",
+    "description": null,
+    "assignedTo": {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emailAddress": "email@email.com",
+      "status": "active",
+            "assignedIssues": []
+    },
+    "createdBy": {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailAddress": "email@email.com",
+      "status": "active",
+            "assignedIssues": []
+    },
+    "createdAt": "2023-06-02T00:00:00.000Z",
+    "closedAt": "2023-06-05T00:00:00.000Z",
+    "dueTo": "2023-06-10T00:00:00.000Z",
+    "status": "Closed",
+    "userStatus": "Closed"
+  },
+  {
+    "id": 23253,
+    "name": "Issue 3",
+    "description": "This is the third issue",
+    "assignedTo": {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emailAddress": "email@email.com",
+            "status": "active",
+      "assignedIssues": []
+    },
+    "createdBy": {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emailAddress": "email@email.com",
+      "status": "active",
+            "assignedIssues": []
+    },
+    "createdAt": "2023-06-03T00:00:00.000Z",
+    "closedAt": null,
+    "dueTo": "2023-07-20T00:00:00.000Z",
+    "status": "In Progress",
+    "userStatus": "In Progress"
+  },
+  {
+    "id": 49764,
+    "name": "Issue 4",
+    "description": "This is the fourth issue",
+    "assignedTo": null,
+    "createdBy": {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailAddress": "email@email.com",
+            "status": "active",
+      "assignedIssues": []
+    },
+    "createdAt": "2023-06-04T00:00:00.000Z",
+    "closedAt": null,
+    "dueTo": "2023-06-15T00:00:00.000Z",
+    "status": "Open",
+    "userStatus": "Open"
+  },
+  {
+    "id": 3423455,
+    "name": "Issue 5",
+    "description": "This is the fifth issue",
+    "assignedTo": {
+      "id": 3,
+      "firstName": "Robert",
+      "lastName": "Johnson",
+      "emailAddress": "email@email.com",
+            "status": "active",
+      "assignedIssues": []
+    },
+    "createdBy": {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emailAddress": "email@email.com",
+            "status": "active",
+      "assignedIssues": []
+    },
+    "createdAt": "2023-06-05T00:00:00.000Z",
+    "closedAt": null,
+    "dueTo": "2023-06-25T00:00:00.000Z",
+    "status": "In Progress",
+    "userStatus": "In Progress"
+  },
+  {
+    "id": 654353,
+    "name": "Issue 6",
+    "description": "This is the sixth issue",
+    "assignedTo": null,
+    "createdBy": {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailAddress": "email@email.com",
+            "status": "active",
+      "assignedIssues": []
+    },
+    "createdAt": "2023-06-10T00:00:00.000Z",
+    "closedAt": null,
+    "dueTo": "2023-06-20T00:00:00.000Z",
+    "status": "Open",
+    "userStatus": "Open"
+  },
+  {
+    "id": 32542527,
+    "name": "Issue 7",
+    "description": null,
+    "assignedTo": {
+      "id": 4,
+      "firstName": "Emily",
+      "lastName": "Jones",
+      "emailAddress": "email@email.com",
+      "status": "active",
+            "assignedIssues": []
+    },
+    "createdBy": {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emailAddress": "email@email.com",
+      "status": "active",
+            "assignedIssues": []
+    },
+    "createdAt": "2023-06-15T00:00:00.000Z",
+    "closedAt": null,
+    "dueTo": "2023-06-30T00:00:00.000Z",
+    "status": "",
+    "userStatus": ""
+  },
+  {
+    "id": 345358,
+    "name": "Issue 8",
+    "description": "This is the eighth issue",
+    "assignedTo": {
+      "id": 3,
+      "firstName": "Robert",
+      "lastName": "Johnson",
+      "emailAddress": "email@email.com",
+      "status": "active",
+            "assignedIssues": []
+    },
+    "createdBy": {
+      "id": 3,
+      "firstName": "Robert",
+      "lastName": "Johnson",
+      "emailAddress": "email@email.com",
+            "status": "active",
+      "assignedIssues": []
+    },
+    "createdAt": "2023-06-20T00:00:00.000Z",
+    "closedAt": null,
+    "dueTo": "2023-07-10T00:00:00.000Z",
+    "status": "In Progress",
+    "userStatus": "In Progress"
+  },
+  {
+    "id": 9645754,
+    "name": "Issue 9",
+    "description": "This is the ninth issue",
+    "assignedTo": {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailAddress": "email@email.com",
+      "status": "active",
+            "assignedIssues": []
+    },
+    "createdBy": {
+      "id": 4,
+      "firstName": "Emily",
+      "lastName": "Jones",
+      "emailAddress": "email@email.com",
+            "status": "active",
+      "assignedIssues": []
+    },
+    "createdAt": "2023-06-25T00:00:00.000Z",
+    "closedAt": null,
+    "dueTo": "2023-07-15T00:00:00.000Z",
+    "status": "In Progress",
+    "userStatus": "In Progress"
+  },
+  {
+    "id": 132440,
+    "name": "Issue 10",
+    "description": "This is the tenth issue",
+    "assignedTo": {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emailAddress": "email@email.com",
+            "status": "active",
+      "assignedIssues": []
+    },
+    "createdBy": {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailAddress": "email@email.com",
+            "status": "active",
+      "assignedIssues": []
+    },
+    "createdAt": "2023-06-30T00:00:00.000Z",
+    "closedAt": null,
+    "dueTo": "2023-07-20T00:00:00.000Z",
+    "status": "In Progress",
+    "userStatus": "In Progress"
+  }
+]
