@@ -1,4 +1,3 @@
-
 /**
  * @prop {number} id the id of the SLA rule
  * @prop {string} name the name of the SLA rule
