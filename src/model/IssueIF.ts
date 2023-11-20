@@ -1,3 +1,4 @@
+import { ChangeLogIF } from './ChangeLogIF';
 import type { EmployeeIF } from './EmployeeIF';
 import type { SLARule } from './SLARule';
 
@@ -13,6 +14,7 @@ import type { SLARule } from './SLARule';
  * @prop {Date| null} dueTo Due date for the Issue
  * @prop {Status} status the Status of issue-progress
  * @prop {SLARule} assignedSLARule the assigned SLA rule of the issue
+ * @prop {ChangeLogIF} changelog the changelog of the issue
  */
 
 export interface IssueIF {
@@ -28,4 +30,5 @@ export interface IssueIF {
   statusChanges: number | null;
   lastStatusChange: Date | null;
   assignedSLARule: SLARule[] | null;
+  changelog: ChangeLogIF | null;
 }
