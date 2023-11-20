@@ -3,20 +3,21 @@ import type { EmployeeIF } from './EmployeeIF';
 import type { SLARule } from './SLARule';
 
 /**
- *
- * @prop {number} id issue id
+ * 
+ * @prop {number} id the id of the issue
  * @prop {string} name the name of the issue
- * @prop {string| null} description the description of the issue
- * @prop {EmployeeIF| null} assignedTo the employee that is assigned to the issue
- * @prop {EmployeeIF} createdBy the employee that created the issue
- * @prop {Date} createdAt the Date when the issue was created
- * @prop {Date| null} closedAt the Date when the issue was closed
- * @prop {Date| null} dueTo Due date for the Issue
- * @prop {Status} status the Status of issue-progress
- * @prop {SLARule} assignedSLARule the assigned SLA rule of the issue
+ * @prop {string} description the description of the issue
+ * @prop {EmployeeIF} assignedTo the employee the issue is assigned to
+ * @prop {EmployeeIF} createdBy the employee who created the issue
+ * @prop {Date} createdAt the date and time when the issue was created
+ * @prop {Date} closedAt the date and time when the issue was closed
+ * @prop {Date} dueTo the date and time when the issue is due
+ * @prop {string} status the status of the issue
+ * @prop {number} statusChanges the number of changes of the status
+ * @prop {Date} lastStatusChange the date and time of the last status change
+ * @prop {SLARule[]} assignedSLARule the SLA rule assigned to the issue
  * @prop {ChangeLogIF} changelog the changelog of the issue
  */
-
 export interface IssueIF {
   id: number;
   name: string;

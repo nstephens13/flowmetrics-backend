@@ -53,7 +53,8 @@ export function parseIssue(response: any) : IssueIF | null {
     status: null,
     statusChanges: null,
     lastStatusChange: parseDate(null),
-    assignedSLARule: null
+    assignedSLARule: null,
+    changelog: null
   };
   return issue;
 }
