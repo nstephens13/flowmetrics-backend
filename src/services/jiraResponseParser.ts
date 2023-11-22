@@ -1,3 +1,4 @@
+import { ChangeLogIF } from '../model/ChangeLogIF';
 import type { EmployeeIF } from '../model/EmployeeIF';
 import type { IssueIF } from '../model/IssueIF';
 
@@ -57,4 +58,19 @@ export function parseIssue(response: any) : IssueIF | null {
     changelog: null
   };
   return issue;
+}
+
+export function parseChangeLog(response: any) : ChangeLogIF | null {
+  if (response == null) {
+    return null;
+  }
+  const changeLog: ChangeLogIF = {
+    id: response.changeLog?.histories?.id,
+    created: parseDate(response.changeLog?.histories?.created),
+    author: parseEmployee(response.changeLog?.histories?.author.key),
+    changeType: response.changeLog?.histories?.items?.field,
+    from: response.changeLog?.histories?.items?.from,
+    to: response.changeLog?.histories?.items?.to
+  }
+  return changeLog;
 }
