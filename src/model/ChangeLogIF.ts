@@ -1,10 +1,5 @@
 import { EmployeeIF } from "./EmployeeIF";
-
-enum ChangeType {
-    statusChange = "status",
-    assigneeChange = "assignee",
-}
-
+import { ChangeIF } from "./ChangeIF";
 /**
  * 
  * @prop {number} id the id of the change
@@ -16,9 +11,7 @@ enum ChangeType {
  */
 export interface ChangeLogIF {
     id: number;
-    changeType: ChangeType | null;
     created: Date | null;
     author: EmployeeIF | null;
-    from: ChangeType extends ChangeType.assigneeChange ? EmployeeIF : string | null;
-    to: ChangeType extends ChangeType.assigneeChange ? EmployeeIF : string | null;
+    changes: ChangeIF[] | null;
 }

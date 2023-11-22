@@ -31,5 +31,5 @@ export interface IssueIF {
   statusChanges: number | null;
   lastStatusChange: Date | null;
   assignedSLARule: SLARule[] | null;
-  changelog: ChangeLogIF | null;
+  changelog: ChangeLogIF[] | null;
 }

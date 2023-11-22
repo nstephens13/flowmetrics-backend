@@ -1,3 +1,4 @@
+import { ChangeIF, ChangeType } from '../model/ChangeIF';
 import { ChangeLogIF } from '../model/ChangeLogIF';
 import type { EmployeeIF } from '../model/EmployeeIF';
 import type { IssueIF } from '../model/IssueIF';
@@ -55,22 +56,44 @@ export function parseIssue(response: any) : IssueIF | null {
     statusChanges: null,
     lastStatusChange: parseDate(null),
     assignedSLARule: null,
-    changelog: null
+    changelog: parseChangeLog(response.changelog)
   };
   return issue;
 }
 
-export function parseChangeLog(response: any) : ChangeLogIF | null {
+export function parseChangeLog(response: any) : ChangeLogIF[] | null {
   if (response == null) {
     return null;
   }
-  const changeLog: ChangeLogIF = {
-    id: response.changeLog?.histories?.id,
-    created: parseDate(response.changeLog?.histories?.created),
-    author: parseEmployee(response.changeLog?.histories?.author.key),
-    changeType: response.changeLog?.histories?.items?.field,
-    from: response.changeLog?.histories?.items?.from,
-    to: response.changeLog?.histories?.items?.to
+  //     const issues: IssueIF[] = response?.issues.map((issueJSON: any) => parseIssue(issueJSON));
+  const changeLogs: ChangeLogIF[] = response?.histories?.map((changeJSON: any) => parseChange(changeJSON)); 
+  return changeLogs;
+}
+
+function parseChange(changeJSON: any) : ChangeLogIF | null {
+  if (changeJSON == null) {
+    return null;
   }
-  return changeLog;
+  const change: ChangeLogIF = {
+    id: changeJSON.id,
+    created: parseDate(changeJSON.created),
+    author: parseEmployee(changeJSON.author),
+    changes: parseChangeHistory(changeJSON.items)
+  }
+  return change;
+}
+
+function parseChangeHistory(items: any): ChangeIF[] | null {
+  if (items == null) {
+    return null;
+  }
+  const changeHistories: ChangeIF[] = items?.map((itemJSON: any) => {
+    const changeHistory: ChangeIF = {
+      changeType: itemJSON.field,
+      from: itemJSON.fromString,
+      to: itemJSON.toString
+    }
+    return changeHistory;
+  });
+  return changeHistories;
 }
