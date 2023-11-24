@@ -30,14 +30,16 @@ function loadIssueDataFromFile(issues: any): IssueIF[] {
       name: issue.name as string,
       description: issue.description as string,
       assignedTo: issue.assignedTo as EmployeeIF,
+      assigneeRestingTime: null,
       createdBy: issue.createdBy as EmployeeIF,
       closedAt: issue.closedAt ? new Date(issue.closedAt) : null,
       createdAt: issue.createdAt ? new Date(issue.createdAt) : null,
       dueTo: issue.dueTo ? new Date(issue.dueTo) : null,
       status: issue.status as string,
+      statusRestingTime: null,
       statusChanges: null,
+      assigneeChanges: null,
       assignedSLARule: issue.assignedSLARule ? issue.assignedSLARule : null,
-      lastStatusChange: faker.date.recent(),
       changelog: null,
     });
   });
@@ -198,16 +200,15 @@ function getMockData(dataset: number): ProjectIF {
           description: faker.hacker.phrase(),
           closedAt: null,
           status: null,
+          statusRestingTime: null,
           assignedTo: null,
+          assigneeRestingTime: null,
           createdAt: faker.date.past(),
           createdBy: employeesArrayFromFile[getRandomInt(employeesForProject.length)],
           dueTo: faker.date.future(),
           statusChanges: null,
+          assigneeChanges: null,
           assignedSLARule: null,
-          lastStatusChange: faker.date.between({
-            from: new Date().valueOf() - 259200000,
-            to: new Date().valueOf(),
-          }),
           changelog: null, // Add the 'changelog' property with a value of null
         });
       }

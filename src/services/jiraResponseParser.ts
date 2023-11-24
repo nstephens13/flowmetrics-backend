@@ -1,7 +1,8 @@
-import { ChangeIF, ChangeType } from "../model/ChangeIF";
-import { ChangeLogIF } from "../model/ChangeLogIF";
-import type { EmployeeIF } from "../model/EmployeeIF";
-import type { IssueIF } from "../model/IssueIF";
+import {ChangeIF, ChangeType} from "../model/ChangeIF";
+import {ChangeLogIF} from "../model/ChangeLogIF";
+import type {EmployeeIF} from "../model/EmployeeIF";
+import type {IssueIF} from "../model/IssueIF";
+import {getTimeDifference} from "./timeCalculator";
 
 /**
  * @description function to extract the first and last name from the display name
@@ -38,7 +39,7 @@ export function parseEmployee(employeeJSON: any): EmployeeIF | null {
     return null;
   }
   const { firstName, lastName } = extractNames(employeeJSON.displayName);
-  const employee: EmployeeIF = {
+  return {
     id: employeeJSON.key,
     firstName,
     lastName,
@@ -46,7 +47,6 @@ export function parseEmployee(employeeJSON: any): EmployeeIF | null {
     avatarUrl: "none",
     status: "inactive",
   };
-  return employee;
 }
 
 /**
@@ -72,20 +72,33 @@ export function parseIssue(response: any): IssueIF | null {
   if (response == null) {
     return null;
   }
+  
+  let assignedTo: EmployeeIF | null = parseEmployee(response.fields.assignee);
+  let createdBy: EmployeeIF | null = parseEmployee(response.fields.creator);
+  let createdAt: Date | null = parseDate(response.fields.created);
+  let dueTo: Date | null = parseDate(response.fields.duedate);
+  let changelog: ChangeLogIF[] | null = parseChangeLog(response.changelog);
+  let statusChanges: ChangeLogIF[] | null = parseChangeType(changelog, ChangeType.statusChange);
+  let assigneeChanges: ChangeLogIF[] | null = parseChangeType(changelog, ChangeType.assigneeChange);
+  let assigneeRestingTime: string | null = getTimeDifference(assigneeChanges?.[assigneeChanges?.length - 1] as ChangeLogIF);
+  let statusRestingTime: string | null = getTimeDifference(statusChanges?.[statusChanges?.length - 1] as ChangeLogIF);
+
   const issue: IssueIF = {
     id: response?.id,
     name: response.fields?.summary,
     description: response.fields?.description,
-    assignedTo: parseEmployee(response.fields.assignee),
-    createdBy: parseEmployee(response.fields.creator),
-    createdAt: parseDate(response.fields.created),
+    assignedTo: assignedTo,
+    assigneeRestingTime: assigneeRestingTime,
+    createdBy: createdBy,
+    createdAt: createdAt,
     closedAt: null,
-    dueTo: parseDate(response.fields.duedate),
+    dueTo: dueTo,
     status: null,
-    statusChanges: null,
-    lastStatusChange: parseDate(null),
+    statusRestingTime: statusRestingTime,
+    statusChanges: statusChanges,
+    assigneeChanges: assigneeChanges,
     assignedSLARule: null,
-    changelog: parseChangeLog(response.changelog),
+    changelog: changelog,
   };
   return issue;
 }
@@ -133,23 +146,56 @@ function parseChangeHistory(items: any): ChangeIF[] | null {
     return null;
   }
   const changeHistories: ChangeIF[] = items?.map((itemJSON: any) => {
-      let changeType: ChangeType | null = null;
-      if (itemJSON.field === ChangeType.assigneeChange) {
+    let changeType: ChangeType | null = null;
+    switch (itemJSON.field) {
+      case ChangeType.assigneeChange:
         changeType = ChangeType.assigneeChange;
-      } else if (itemJSON.field === ChangeType.statusChange) {
+        break;
+      case ChangeType.statusChange:
         changeType = ChangeType.statusChange;
-      }
-      if (changeType === null) {
-        return null;
-      } else {
-        const changeHistory: ChangeIF = {
-          changeType,
-          from: itemJSON.fromString,
-          to: itemJSON.toString,
-        };
-        return changeHistory;
-      }
-    })
-    .filter((changeHistory: ChangeIF | null) => changeHistory !== null);
+        break;
+      default:
+        break;
+    }
+    if (changeType === null) {
+      return null;
+    } else {
+      const changeHistory: ChangeIF = {
+        changeType,
+        from: itemJSON.fromString,
+        to: itemJSON.toString,
+      };
+      return changeHistory;
+    }
+  }).filter((changeHistory: ChangeIF | null) => changeHistory !== null);
   return changeHistories;
 }
+
+/**
+ * @description function to parse the changes of specific changeType to a ChangeLogIF[]
+ *
+ * @param changeLog parsed changelog
+ * @param changeType the type of change
+ * @returns changelog as a ChangelogIF[] or null if response is null
+ */
+function parseChangeType(changeLog: ChangeLogIF[] | null, changeType: ChangeType): ChangeLogIF[] | null {
+  if (changeLog === null) {
+    return null;
+  }
+  const changeLogs: ChangeLogIF[] = (changeLog?.map((history: ChangeLogIF) => {
+    let changes = history.changes?.filter((change: ChangeIF) => change.changeType === changeType) || [];
+    if (changes.length === 0) {
+      return null;
+    } else {
+      const change: ChangeLogIF = {
+        id: history.id,
+        created: history.created,
+        author: history.author,
+        changes: changes,
+      };
+      return change;
+    }
+  }) || []).filter((changeLog: ChangeLogIF | null): changeLog is ChangeLogIF => changeLog !== null);
+  return changeLogs;
+}
+

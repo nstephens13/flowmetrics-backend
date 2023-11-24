@@ -13,23 +13,25 @@ import type { SLARule } from './SLARule';
  * @prop {Date} closedAt the date and time when the issue was closed
  * @prop {Date} dueTo the date and time when the issue is due
  * @prop {string} status the status of the issue
- * @prop {number} statusChanges the number of changes of the status
- * @prop {Date} lastStatusChange the date and time of the last status change
+ * @prop {ChangeLogIF[]} statusChanges the status changes of the issue
+ * @prop {ChangeLogIF[]} assigneeChanges the assignee changes of the issue
  * @prop {SLARule[]} assignedSLARule the SLA rule assigned to the issue
  * @prop {ChangeLogIF} changelog the changelog of the issue
  */
 export interface IssueIF {
   id: number;
   name: string;
-  description: string | null;
+  description: string | null; 
   assignedTo: EmployeeIF | null;
-  createdBy: EmployeeIF | null;
-  createdAt: Date | null;
-  closedAt: Date | null;
+  assigneeRestingTime: string | null;
+  createdBy: EmployeeIF | null; 
+  createdAt: Date | null; 
+  closedAt: Date | null; 
   dueTo: Date | null;
   status: string | null;
-  statusChanges: number | null;
-  lastStatusChange: Date | null;
+  statusRestingTime: string | null;
+  statusChanges: ChangeLogIF[] | null;
+  assigneeChanges: ChangeLogIF[] | null;
   assignedSLARule: SLARule[] | null;
   changelog: ChangeLogIF[] | null;
 }
