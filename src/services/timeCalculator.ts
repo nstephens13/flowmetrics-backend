@@ -2,7 +2,7 @@ import { DateTime, DurationLikeObject } from "luxon";
 import { ChangeLogIF } from "../model/ChangeLogIF";
 
 /**
- * @description function to calculate the time difference between the current time and the time the issue was created
+ * @description function to calculate the time difference between the current time and the time the changeLog was created
  *
  * @param changeLog changeLog to calculate the time difference
  * @returns {DurationLikeObject | null} will return the time difference as a DurationLikeObject or null if changeLog is null
