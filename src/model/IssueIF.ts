@@ -1,6 +1,7 @@
 import { ChangeLogIF } from './ChangeLogIF';
 import type { EmployeeIF } from './EmployeeIF';
 import type { SLARule } from './SLARule';
+import { DurationLikeObject } from "luxon";
 
 /**
  * 
@@ -23,13 +24,13 @@ export interface IssueIF {
   name: string;
   description: string | null; 
   assignedTo: EmployeeIF | null;
-  assigneeRestingTime: string | null;
+  assigneeRestingTime: DurationLikeObject | null;
   createdBy: EmployeeIF | null; 
   createdAt: Date | null; 
   closedAt: Date | null; 
   dueTo: Date | null;
   status: string | null;
-  statusRestingTime: string | null;
+  statusRestingTime: DurationLikeObject | null;
   statusChanges: ChangeLogIF[] | null;
   assigneeChanges: ChangeLogIF[] | null;
   assignedSLARule: SLARule[] | null;

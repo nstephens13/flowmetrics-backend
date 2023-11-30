@@ -1,26 +1,24 @@
-import {IssueIF} from "../model/IssueIF";
-import {ChangeLogIF} from "../model/ChangeLogIF";
+import { DateTime, DurationLikeObject } from "luxon";
+import { ChangeLogIF } from "../model/ChangeLogIF";
 
 /**
  * @description function to calculate the time difference between the current time and the time the issue was created
- * 
+ *
  * @param changeLog changeLog to calculate the time difference
- * @returns time difference as a string
+ * @returns {DurationLikeObject | null} will return the time difference as a DurationLikeObject or null if changeLog is null
  */
-export function getTimeDifference(changeLog: ChangeLogIF): string {
-  const targetDate = new Date(changeLog.created?.toString() as string);
-  const targetDateTime = new Date(targetDate);
-  const now = new Date();
-
-  // Calculate the difference in milliseconds
-  const timeDifference = targetDateTime.getTime() - now.getTime();
-
-  // Calculate weeks, days, hours, and minutes
-  const weeks = Math.abs(Math.round(timeDifference / (1000 * 60 * 60 * 24 * 7)));
-  const days = Math.abs(Math.round((timeDifference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24)));
-  const hours = Math.abs(Math.round((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-  const minutes = Math.abs(Math.round((timeDifference % (1000 * 60 * 60)) / (1000 * 60)));
-
-  // Create a string representation of the time difference
-  return `${weeks} weeks, ${days} days, ${hours} hours, ${minutes} minutes`;
+export function getTimeDifference(changeLog: ChangeLogIF): DurationLikeObject | null {
+  if (changeLog.created == null) {
+    return null;
+  }
+  var startDateTime = DateTime.fromISO(changeLog.created.toISOString());
+  var endDateTime = DateTime.now();
+  return endDateTime.diff(startDateTime, [
+    'weeks',
+    'days',
+    'hours',
+    'minutes',
+    'seconds',
+    'milliseconds'
+  ]).toObject();
 }

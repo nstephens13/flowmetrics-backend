@@ -1,3 +1,4 @@
+import { Duration, DurationLikeObject } from "luxon";
 import {ChangeIF, ChangeType} from "../model/ChangeIF";
 import {ChangeLogIF} from "../model/ChangeLogIF";
 import type {EmployeeIF} from "../model/EmployeeIF";
@@ -80,8 +81,8 @@ export function parseIssue(response: any): IssueIF | null {
   let changelog: ChangeLogIF[] | null = parseChangeLog(response.changelog);
   let statusChanges: ChangeLogIF[] | null = parseChangeType(changelog, ChangeType.statusChange);
   let assigneeChanges: ChangeLogIF[] | null = parseChangeType(changelog, ChangeType.assigneeChange);
-  let assigneeRestingTime: string | null = getTimeDifference(assigneeChanges?.[assigneeChanges?.length - 1] as ChangeLogIF);
-  let statusRestingTime: string | null = getTimeDifference(statusChanges?.[statusChanges?.length - 1] as ChangeLogIF);
+  let assigneeRestingTime: DurationLikeObject | null = getTimeDifference(assigneeChanges?.[assigneeChanges?.length - 1] as ChangeLogIF);
+  let statusRestingTime: DurationLikeObject | null = getTimeDifference(statusChanges?.[statusChanges?.length - 1] as ChangeLogIF);
 
   const issue: IssueIF = {
     id: response?.id,
