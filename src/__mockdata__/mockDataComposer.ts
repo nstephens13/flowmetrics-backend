@@ -40,7 +40,6 @@ function loadIssueDataFromFile(issues: any): IssueIF[] {
       statusChanges: null,
       assigneeChanges: null,
       assignedSLARule: issue.assignedSLARule ? issue.assignedSLARule : null,
-      changelog: null,
     });
   });
   return issueData;
@@ -209,7 +208,6 @@ function getMockData(dataset: number): ProjectIF {
           statusChanges: null,
           assigneeChanges: null,
           assignedSLARule: null,
-          changelog: null, // Add the 'changelog' property with a value of null
         });
       }
 

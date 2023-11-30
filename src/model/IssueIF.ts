@@ -34,5 +34,4 @@ export interface IssueIF {
   statusChanges: ChangeLogIF[] | null;
   assigneeChanges: ChangeLogIF[] | null;
   assignedSLARule: SLARule[] | null;
-  changelog: ChangeLogIF[] | null;
 }

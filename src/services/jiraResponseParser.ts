@@ -99,7 +99,6 @@ export function parseIssue(response: any): IssueIF | null {
     statusChanges: statusChanges,
     assigneeChanges: assigneeChanges,
     assignedSLARule: null,
-    changelog: changelog,
   };
   return issue;
 }
