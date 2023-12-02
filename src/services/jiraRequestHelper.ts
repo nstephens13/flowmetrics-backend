@@ -1,31 +1,26 @@
 import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import * as process from 'process';
+import dotenv from 'dotenv';
 import type { IssueIF } from '../model/IssueIF';
 import type { EmployeeIF } from '../model/EmployeeIF';
 import { parseEmployee, parseIssue } from './jiraResponseParser';
-import getMockData from "../__mockdata__/mockDataComposer";
-import {ProjectIF} from "../model/ProjectIF";
-import dotenv from 'dotenv';
+import getMockData from '../__mockdata__/mockDataComposer';
+import { ProjectIF } from '../model/ProjectIF';
 
 dotenv.config();
 
-const mockdataproject : ProjectIF = getMockData(4);
+const mockdataproject: ProjectIF = getMockData(4);
 
-
-
-//getting the url from the environment-variable
+// getting the url from the environment-variable
 const url = `https://${process.env.JIRA_URL}/rest/api/2/`;
 
-//getting the bearer token from env variable and configuring the header for the requests
+// getting the bearer token from env variable and configuring the header for the requests
 const axiosRequestConf: AxiosRequestConfig<any> = {
   headers: {
     Authorization: `Bearer ${process.env.USER_BEARERTOKEN}`,
   },
 };
-
-
-
 
 /**
  * @brief: function that actual calls the REST api
@@ -43,10 +38,8 @@ async function fetchGetRequestToEndpoint(endpoint: string) {
   }
 }
 
-
-//function to fetch the user-Infos of the actual user that is connected with its bearer token
+// function to fetch the user-Infos of the actual user that is connected with its bearer token
 export async function fetchUserInfo(): Promise<EmployeeIF> {
-
   const endpoint = 'myself';
 
   try {
@@ -54,8 +47,7 @@ export async function fetchUserInfo(): Promise<EmployeeIF> {
     const user = parseEmployee(response);
     return user == null ? Promise.reject() : user;
   } catch (err) {
-
-    //ToDo Remove mockdata fallback
+    // ToDo Remove mockdata fallback
     const user = mockdataproject.issues[1].createdBy;
     return user == null ? Promise.reject() : user;
 
@@ -63,9 +55,8 @@ export async function fetchUserInfo(): Promise<EmployeeIF> {
   }
 }
 
-//function to fetch a single issue with its key and expanded changelog
-export async function fetchIssue(id: number) :Promise<IssueIF> {
-
+// function to fetch a single issue with its key and expanded changelog
+export async function fetchIssue(id: number): Promise<IssueIF> {
   const endpoint = `issue/${id}?expand=changelog`;
 
   try {
@@ -73,18 +64,15 @@ export async function fetchIssue(id: number) :Promise<IssueIF> {
     const issue = parseIssue(response);
     return issue == null ? Promise.reject() : issue;
   } catch (err) {
-
-    //ToDo Remove mockdata fallback
-    return mockdataproject.issues[1]
+    // ToDo Remove mockdata fallback
+    return mockdataproject.issues[1];
 
     // return Promise.reject(err);
   }
 }
 
-
-//function to get a variable amount of the newest created issue of a project with expanded changelog and sorted by date
+// function to get a variable amount of the newest created issue of a project with expanded changelog and sorted by date
 export async function searchNewestIssues(projectKey: string, amount: number): Promise<IssueIF[]> {
-
   const endpoint = `search?jql=project=${projectKey}&maxResults=${amount}&expand=changelog&orderBy=-created`;
 
   try {
@@ -92,16 +80,15 @@ export async function searchNewestIssues(projectKey: string, amount: number): Pr
     const issues: IssueIF[] = response?.issues.map((issueJSON: any) => parseIssue(issueJSON));
     return issues;
   } catch (err) {
-    
-    //ToDo Remove mockdata fallback
-    return mockdataproject.issues
+    // ToDo Remove mockdata fallback
+    return mockdataproject.issues;
 
     // return Promise.reject(err);
   }
 }
 
-//ToDo remove in further development
-//function to get the whole mockdataproject without asking jira first for dev purposes
-export async function fetchProject(id: string) :Promise<ProjectIF> {
-  return mockdataproject
+// ToDo remove in further development
+// function to get the whole mockdataproject without asking jira first for dev purposes
+export async function fetchProject(id: string): Promise<ProjectIF> {
+  return mockdataproject;
 }

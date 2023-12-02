@@ -2,10 +2,9 @@ import { faker } from '@faker-js/faker';
 import employeeJson from './Employees.json';
 import issueJson2 from './Issues_2.json';
 import issueJson from './Issues.json';
-import {IssueIF} from "../model/IssueIF";
-import {EmployeeIF} from "../model/EmployeeIF";
-import {ProjectIF} from "../model/ProjectIF";
-
+import { IssueIF } from '../model/IssueIF';
+import { EmployeeIF } from '../model/EmployeeIF';
+import { ProjectIF } from '../model/ProjectIF';
 
 // Define lists of different category with statuses
 /**
@@ -187,7 +186,7 @@ function getMockData(dataset: number): ProjectIF {
   let [employeesForProject, issuesForProject]: [EmployeeIF[], IssueIF[]] = [[], []];
 
   switch (dataset) {
-     case 4: {
+    case 4: {
       [employeesArrayFromFile, issuesArrayFromFile] = loadArraysFromFile(issueJson2);
 
       for (let iterator = 0; iterator < 280; iterator++) {

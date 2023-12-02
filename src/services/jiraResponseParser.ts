@@ -1,7 +1,7 @@
 import type { EmployeeIF } from '../model/EmployeeIF';
 import type { IssueIF } from '../model/IssueIF';
 
-function extractNames(displayName: string): { firstName: string, lastName: string } {
+function extractNames(displayName: string): { firstName: string; lastName: string } {
   const commaIndex = displayName.indexOf(',');
 
   if (commaIndex === -1) {
@@ -14,7 +14,7 @@ function extractNames(displayName: string): { firstName: string, lastName: strin
   return { firstName, lastName };
 }
 
-export function parseEmployee(employeeJSON: any) : EmployeeIF | null {
+export function parseEmployee(employeeJSON: any): EmployeeIF | null {
   if (employeeJSON == null) {
     return null;
   }
@@ -25,7 +25,7 @@ export function parseEmployee(employeeJSON: any) : EmployeeIF | null {
     lastName,
     emailAddress: 'none',
     avatarUrl: 'none',
-    status: "inactive"
+    status: 'inactive',
   };
   return employee;
 }
@@ -37,7 +37,7 @@ export function parseDate(response: any): Date | null {
   return null;
 }
 
-export function parseIssue(response: any) : IssueIF | null {
+export function parseIssue(response: any): IssueIF | null {
   if (response == null) {
     return null;
   }
@@ -53,7 +53,7 @@ export function parseIssue(response: any) : IssueIF | null {
     status: null,
     statusChanges: null,
     lastStatusChange: parseDate(null),
-    assignedSLARule: null
+    assignedSLARule: null,
   };
   return issue;
 }
