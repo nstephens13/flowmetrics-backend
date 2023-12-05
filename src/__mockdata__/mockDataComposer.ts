@@ -29,14 +29,16 @@ function loadIssueDataFromFile(issues: any): IssueIF[] {
       name: issue.name as string,
       description: issue.description as string,
       assignedTo: issue.assignedTo as EmployeeIF,
+      assigneeRestingTime: null,
       createdBy: issue.createdBy as EmployeeIF,
       closedAt: issue.closedAt ? new Date(issue.closedAt) : null,
       createdAt: issue.createdAt ? new Date(issue.createdAt) : null,
       dueTo: issue.dueTo ? new Date(issue.dueTo) : null,
       status: issue.status as string,
+      statusRestingTime: null,
       statusChanges: null,
+      assigneeChanges: null,
       assignedSLARule: issue.assignedSLARule ? issue.assignedSLARule : null,
-      lastStatusChange: faker.date.recent(),
     });
   });
   return issueData;
@@ -190,35 +192,21 @@ function getMockData(dataset: number): ProjectIF {
       [employeesArrayFromFile, issuesArrayFromFile] = loadArraysFromFile(issueJson2);
 
       for (let iterator = 0; iterator < 280; iterator++) {
-        let status = 'Open';
-        let closedAt = null;
-
-        const randomStatus = getRandomInt(3); // 0: Open, 1: Closed, 2: In Progress
-
-        if (randomStatus === 2) {
-          status = 'In Progress';
-        } else if (randomStatus === 1) {
-          closedAt = faker.date.recent();
-        }
-
-        const statusChanges = getRandomInt(10);
-
         issuesForProject.push({
           id: iterator + 1,
           name: faker.company.catchPhrase(),
           description: faker.hacker.phrase(),
-          closedAt,
-          status,
+          closedAt: null,
+          status: null,
+          statusRestingTime: null,
           assignedTo: null,
+          assigneeRestingTime: null,
           createdAt: faker.date.past(),
           createdBy: employeesArrayFromFile[getRandomInt(employeesForProject.length)],
           dueTo: faker.date.future(),
-          statusChanges,
+          statusChanges: null,
+          assigneeChanges: null,
           assignedSLARule: null,
-          lastStatusChange: faker.date.between({
-            from: new Date().valueOf() - 259200000,
-            to: new Date().valueOf(),
-          }), // 259200000 is 3 days in ms
         });
       }
 

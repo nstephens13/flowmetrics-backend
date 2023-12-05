@@ -23,8 +23,7 @@ const axiosRequestConf: AxiosRequestConfig<any> = {
 };
 
 /**
- * @brief: function that actual calls the REST api
- *
+ * @description function to fetch a get request to the jira api with the given endpoint
  *
  * @param endpoint the changeable part of the request url, the postfix after /api/2/
  * @returns {Promise<any>} will return the response as a AxiosResponse or a rejected promise
@@ -38,7 +37,12 @@ async function fetchGetRequestToEndpoint(endpoint: string) {
   }
 }
 
-// function to fetch the user-Infos of the actual user that is connected with its bearer token
+
+/**
+ * @description function to fetch the user-Infos of the actual user that is connected with its bearer token
+ *
+ * @returns {Promise<EmployeeIF>} will return the user as a EmployeeIF or a rejected promise
+ */
 export async function fetchUserInfo(): Promise<EmployeeIF> {
   const endpoint = 'myself';
 
@@ -47,16 +51,23 @@ export async function fetchUserInfo(): Promise<EmployeeIF> {
     const user = parseEmployee(response);
     return user == null ? Promise.reject() : user;
   } catch (err) {
-    // ToDo Remove mockdata fallback
-    const user = mockdataproject.issues[1].createdBy;
+
+    //ToDo Remove mocData fallback
+    const user = mockDataProject.issues[1].createdBy;
     return user == null ? Promise.reject() : user;
 
     // return Promise.reject(err);
   }
 }
 
-// function to fetch a single issue with its key and expanded changelog
-export async function fetchIssue(id: number): Promise<IssueIF> {
+/**
+ * @description function to fetch an issue by its id with expanded changelog
+ *
+ * @param id the id of the issue that should be fetched
+ * @returns {Promise<IssueIF>} will return the issue as a IssueIF or a rejected promise
+ */
+export async function fetchIssue(id: number) :Promise<IssueIF> {
+
   const endpoint = `issue/${id}?expand=changelog`;
 
   try {
@@ -64,14 +75,21 @@ export async function fetchIssue(id: number): Promise<IssueIF> {
     const issue = parseIssue(response);
     return issue == null ? Promise.reject() : issue;
   } catch (err) {
-    // ToDo Remove mockdata fallback
-    return mockdataproject.issues[1];
+
+    //ToDo Remove mockData fallback
+    return mockDataProject.issues[1]
 
     // return Promise.reject(err);
   }
 }
 
-// function to get a variable amount of the newest created issue of a project with expanded changelog and sorted by date
+/**
+ * @description function to fetch a variable amount of the newest created issue of a project with expanded changelog and sorted by date
+ *
+ * @param projectKey projectKey of the project that should be searched
+ * @param amount amount of issues that should be fetched
+ * @returns {Promise<IssueIF[]>} will return the issues as a IssueIF[] or a rejected promise
+ */
 export async function searchNewestIssues(projectKey: string, amount: number): Promise<IssueIF[]> {
   const endpoint = `search?jql=project=${projectKey}&maxResults=${amount}&expand=changelog&orderBy=-created`;
 
@@ -80,15 +98,21 @@ export async function searchNewestIssues(projectKey: string, amount: number): Pr
     const issues: IssueIF[] = response?.issues.map((issueJSON: any) => parseIssue(issueJSON));
     return issues;
   } catch (err) {
-    // ToDo Remove mockdata fallback
-    return mockdataproject.issues;
+    
+    //ToDo Remove mockData fallback
+    return mockDataProject.issues
 
     // return Promise.reject(err);
   }
 }
 
-// ToDo remove in further development
-// function to get the whole mockdataproject without asking jira first for dev purposes
-export async function fetchProject(id: string): Promise<ProjectIF> {
-  return mockdataproject;
+//ToDo remove in further development
+/**
+ * @description function to get the whole mockDataProject without asking jira first for dev purposes
+ *
+ * @param id id of the project that should be fetched
+ * @returns {Promise<ProjectIF>} will return the project as a ProjectIF or a rejected promise
+ */
+export async function fetchProject(id: string) :Promise<ProjectIF> {
+  return mockDataProject
 }
