@@ -1,0 +1,108 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const childProcessExec = require('child_process').exec;
+const util = require('util');
+
+const BRANCH_CONTRACT = /^([0-9]{1,6}-((-|[a-zA-Z0-9])+))/;
+const TIMEOUT_THRESHOLD = 3000;
+
+const exec = util.promisify(childProcessExec);
+
+checkCommitMessage();
+hookCleanup();
+
+async function checkCommitMessage() {
+  let branchName = '';
+  try {
+    branchName = await getCurrentBranch();
+  } catch (e) {
+    handleGitBranchCommandError(e);
+  }
+
+  if (!BRANCH_CONTRACT.test(branchName)) {
+    handleBadBranchName();
+  }
+
+  const commitMsgFile = process.argv[2];
+  const message = fs.readFileSync(commitMsgFile, 'utf8').trim();
+
+  let COMMIT_CONTRACT = /^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test){1}:\#([0-9]{1,6})\s((\s|[a-zA-Z0-9])+)/;
+  let result = COMMIT_CONTRACT.test(message);
+
+  const ticketID = getTicketIDFromString(branchName);
+  const messageID = getTicketIDFromString(message);
+
+  if (!result) {
+    handleBadCommitMessage(COMMIT_CONTRACT, ticketID, message);
+    
+  }
+
+  if(ticketID != messageID){
+    handleBadCommitMessage(COMMIT_CONTRACT, ticketID, message);
+  }
+
+
+  process.exit(0);
+}
+
+function getTicketIDFromString(string) {
+  const TICKET_ID = /[0-9]{1,6}/;
+  let ticketID = string.match(TICKET_ID);
+  if (ticketID == null) {
+    return "[0-9]{1,6}";
+  }
+  return ticketID[0];
+}
+
+async function getCurrentBranch() {
+  const command = process.platform === 'win32' ? 'git branch' : 'git branch --show-current';
+  const branchesOutput = await exec(command);
+  if (branchesOutput.stderr) {
+    throw new Error(branchesOutput.stderr);
+  }
+  const branches = branchesOutput.stdout;
+  return branches.split('\n').find((b) => b.trim().charAt(0) === '*').trim().substring(2);
+}
+
+function handleGitBranchCommandError(e) {
+  console.log('Something bad happened when trying to read the repository branches using the "git branch" command');
+  console.log('This script is intended to be run as a git hook inside a git repository. Are you sure you\'re calling it properly?');
+  console.log('The error provided by the "git branch" invocation was the following:');
+  console.log(e.getMessage());
+  console.log('----');
+  console.log('Your commit will be rejected. This script will terminate.');
+  process.exit(1);
+}
+
+function handleBadBranchName() {
+  console.log('There is something wrong with your branch name');
+  console.log('Branch names in this project must adhere to this contract: ' + BRANCH_CONTRACT);
+  console.log('They must start with the YouTrack issue identifier, followed by a _');
+  console.log('Your commit will be rejected. You should rename your branch to a valid name, for instance, you could run a command like the following to rename your branch:');
+  console.log('git branch -m XYZ-the-ticket-title');
+  console.log('If you think there is something wrong with this message, or that your branch name is not being validated properly, check the commit-msg git hook.');
+  console.log('Otherwise, you can force the commit with the param "--no-verify"');
+  process.exit(1);
+}
+
+function handleBadCommitMessage(commitContract, ticketID, message) {
+  console.log('There is something wrong with your commit message');
+  console.log('TicketID: ' + ticketID);
+  console.log('Message: ' + message);
+  console.log('It should start with the type, followed by :#"ticket-id" and message, please adhering to this contract: ' + commitContract);
+  console.log('Your commit will be rejected. Please re-commit your work again with a proper commit message.');
+  console.log('You can find more info in this link: https://gitlab.imn.htwk-leipzig.de/projekt2023-p-datenexploration-und-visualisierung-eines-arbeitsworkflows-adesso-se/dokumentation/-/wikis/git/commit-messages');
+  console.log('If you think there is something wrong with this message or that your commit message is not being validated properly, check the commit-msg git hook.');
+  console.log('Otherwise, you can force the commit with the param "--no-verify"');
+  process.exit(1);
+}
+
+function hookCleanup() {
+  setTimeout(() => {
+    console.log('This is a timeout message from your commit-msg git hook. If you see this, something bad happened in your pre-commit hook, and it absolutely did not work as expected.');
+    console.log('Your commit will be rejected. Please read any previous error message related to your commit message, and/or check the commit-msg git hook script.');
+    console.log('You can find more info in this link: https://git-scm.com/book/uz/v2/Customizing-Git-An-Example-Git-Enforced-Policy');
+    process.exit(1);
+  }, TIMEOUT_THRESHOLD);
+}
