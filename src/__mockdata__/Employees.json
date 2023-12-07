@@ -4,14 +4,14 @@
     "firstName": "John",
     "lastName": "Doe",
     "status": "active",
-        "assignedIssues": [],
+    "assignedIssues": [],
     "emailAddress": "john.doe@email.com"
   },
   {
     "id": 2,
     "firstName": "Jane",
     "lastName": "Smith",
-        "status": "active",
+    "status": "active",
     "assignedIssues": [],
     "emailAddress": "jane.smith@email.com"
   },
@@ -19,7 +19,7 @@
     "id": 3,
     "firstName": "Mike",
     "lastName": "Johnson",
-        "status": "active",
+    "status": "active",
     "assignedIssues": [],
     "emailAddress": "mike.johnson@email.com"
   },
@@ -28,7 +28,7 @@
     "firstName": "Max",
     "lastName": "Mustermann",
     "status": "active",
-        "assignedIssues": [],
+    "assignedIssues": [],
     "emailAddress": "max.mustermann@email.com"
   },
   {
@@ -36,7 +36,7 @@
     "firstName": "Martha",
     "lastName": "Musterfrau",
     "status": "active",
-        "assignedIssues": [],
+    "assignedIssues": [],
     "emailAddress": "martha.musterfrau@email.com"
   },
   {
@@ -44,7 +44,7 @@
     "firstName": "Estelle",
     "lastName": "Johnson",
     "status": "active",
-        "assignedIssues": [],
+    "assignedIssues": [],
     "emailAddress": "estelle.johnson@email.com"
   },
   {
@@ -52,7 +52,7 @@
     "firstName": "Sinan",
     "lastName": "Mustermann",
     "status": "active",
-        "assignedIssues": [],
+    "assignedIssues": [],
     "emailAddress": "sinan.mustermann@email.com"
   },
   {
@@ -60,7 +60,7 @@
     "firstName": "Elmar",
     "lastName": "Smith",
     "status": "active",
-        "assignedIssues": [],
+    "assignedIssues": [],
     "emailAddress": "elmar.smith@email.com",
     "avatarUrl": "none"
   },
@@ -69,7 +69,7 @@
     "firstName": "Clara",
     "lastName": "Roe",
     "status": "active",
-        "assignedIssues": [],
+    "assignedIssues": [],
     "emailAddress": "clara.roe@email.com",
     "avatarUrl": "none"
   },
@@ -77,7 +77,7 @@
     "id": 10,
     "firstName": "Nived",
     "lastName": "Mustermann",
-        "status": "active",
+    "status": "active",
     "assignedIssues": [],
     "emailAddress": "nived.mustermann@email.com",
     "avatarUrl": "none"
@@ -86,7 +86,7 @@
     "id": 11,
     "firstName": "Abi",
     "lastName": "Johnson",
-        "status": "inactive",
+    "status": "inactive",
     "assignedIssues": [],
     "emailAddress": "abi.johnson@email.com",
     "avatarUrl": "none"
@@ -96,7 +96,7 @@
     "firstName": "Phillip",
     "lastName": "Docker",
     "status": "active",
-        "assignedIssues": [],
+    "assignedIssues": [],
     "emailAddress": "phillip.docker@email.com",
     "avatarUrl": "none"
   },
@@ -104,7 +104,7 @@
     "id": 13,
     "firstName": "Ingmar",
     "lastName": "Mustermann",
-        "status": "active",
+    "status": "active",
     "assignedIssues": [],
     "emailAddress": "ingmar.mustermann@email.com",
     "avatarUrl": "none"

@@ -1,31 +1,26 @@
 import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import * as process from 'process';
+import dotenv from 'dotenv';
 import type { IssueIF } from '../model/IssueIF';
 import type { EmployeeIF } from '../model/EmployeeIF';
 import { parseEmployee, parseIssue } from './jiraResponseParser';
-import getMockData from "../__mockdata__/mockDataComposer";
-import {ProjectIF} from "../model/ProjectIF";
-import dotenv from 'dotenv';
+import getMockData from '../__mockdata__/mockDataComposer';
+import { ProjectIF } from '../model/ProjectIF';
 
 dotenv.config();
 
-const mockDataProject : ProjectIF = getMockData(4);
+const mockdataproject: ProjectIF = getMockData(4);
 
-
-
-//getting the url from the environment-variable
+// getting the url from the environment-variable
 const url = `https://${process.env.JIRA_URL}/rest/api/2/`;
 
-//getting the bearer token from env variable and configuring the header for the requests
+// getting the bearer token from env variable and configuring the header for the requests
 const axiosRequestConf: AxiosRequestConfig<any> = {
   headers: {
     Authorization: `Bearer ${process.env.USER_BEARERTOKEN}`,
   },
 };
-
-
-
 
 /**
  * @description function to fetch a get request to the jira api with the given endpoint
@@ -49,7 +44,6 @@ async function fetchGetRequestToEndpoint(endpoint: string) {
  * @returns {Promise<EmployeeIF>} will return the user as a EmployeeIF or a rejected promise
  */
 export async function fetchUserInfo(): Promise<EmployeeIF> {
-
   const endpoint = 'myself';
 
   try {
@@ -97,7 +91,6 @@ export async function fetchIssue(id: number) :Promise<IssueIF> {
  * @returns {Promise<IssueIF[]>} will return the issues as a IssueIF[] or a rejected promise
  */
 export async function searchNewestIssues(projectKey: string, amount: number): Promise<IssueIF[]> {
-
   const endpoint = `search?jql=project=${projectKey}&maxResults=${amount}&expand=changelog&orderBy=-created`;
 
   try {

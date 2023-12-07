@@ -1,6 +1,5 @@
-
 import type { IssueIF } from './IssueIF';
-import type {SLASubscriber} from "./SLASubscriber";
+import type { SLASubscriber } from './SLASubscriber';
 
 /**
  * 

@@ -10,7 +10,7 @@
       "lastName": "Doe",
       "emailAddress": "email@email.com",
       "status": "active",
-            "assignedIssues": []
+      "assignedIssues": []
     },
     "createdAt": "2023-06-01T00:00:00.000Z",
     "closedAt": null,
@@ -28,7 +28,7 @@
       "lastName": "Smith",
       "emailAddress": "email@email.com",
       "status": "active",
-            "assignedIssues": []
+      "assignedIssues": []
     },
     "createdBy": {
       "id": 1,
@@ -36,7 +36,7 @@
       "lastName": "Doe",
       "emailAddress": "email@email.com",
       "status": "active",
-            "assignedIssues": []
+      "assignedIssues": []
     },
     "createdAt": "2023-06-02T00:00:00.000Z",
     "closedAt": "2023-06-05T00:00:00.000Z",
@@ -53,7 +53,7 @@
       "firstName": "Jane",
       "lastName": "Smith",
       "emailAddress": "email@email.com",
-            "status": "active",
+      "status": "active",
       "assignedIssues": []
     },
     "createdBy": {
@@ -62,7 +62,7 @@
       "lastName": "Smith",
       "emailAddress": "email@email.com",
       "status": "active",
-            "assignedIssues": []
+      "assignedIssues": []
     },
     "createdAt": "2023-06-03T00:00:00.000Z",
     "closedAt": null,
@@ -80,7 +80,7 @@
       "firstName": "John",
       "lastName": "Doe",
       "emailAddress": "email@email.com",
-            "status": "active",
+      "status": "active",
       "assignedIssues": []
     },
     "createdAt": "2023-06-04T00:00:00.000Z",
@@ -98,7 +98,7 @@
       "firstName": "Robert",
       "lastName": "Johnson",
       "emailAddress": "email@email.com",
-            "status": "active",
+      "status": "active",
       "assignedIssues": []
     },
     "createdBy": {
@@ -106,7 +106,7 @@
       "firstName": "Jane",
       "lastName": "Smith",
       "emailAddress": "email@email.com",
-            "status": "active",
+      "status": "active",
       "assignedIssues": []
     },
     "createdAt": "2023-06-05T00:00:00.000Z",
@@ -125,7 +125,7 @@
       "firstName": "John",
       "lastName": "Doe",
       "emailAddress": "email@email.com",
-            "status": "active",
+      "status": "active",
       "assignedIssues": []
     },
     "createdAt": "2023-06-10T00:00:00.000Z",
@@ -144,7 +144,7 @@
       "lastName": "Jones",
       "emailAddress": "email@email.com",
       "status": "active",
-            "assignedIssues": []
+      "assignedIssues": []
     },
     "createdBy": {
       "id": 2,
@@ -152,7 +152,7 @@
       "lastName": "Smith",
       "emailAddress": "email@email.com",
       "status": "active",
-            "assignedIssues": []
+      "assignedIssues": []
     },
     "createdAt": "2023-06-15T00:00:00.000Z",
     "closedAt": null,
@@ -170,14 +170,14 @@
       "lastName": "Johnson",
       "emailAddress": "email@email.com",
       "status": "active",
-            "assignedIssues": []
+      "assignedIssues": []
     },
     "createdBy": {
       "id": 3,
       "firstName": "Robert",
       "lastName": "Johnson",
       "emailAddress": "email@email.com",
-            "status": "active",
+      "status": "active",
       "assignedIssues": []
     },
     "createdAt": "2023-06-20T00:00:00.000Z",
@@ -196,14 +196,14 @@
       "lastName": "Doe",
       "emailAddress": "email@email.com",
       "status": "active",
-            "assignedIssues": []
+      "assignedIssues": []
     },
     "createdBy": {
       "id": 4,
       "firstName": "Emily",
       "lastName": "Jones",
       "emailAddress": "email@email.com",
-            "status": "active",
+      "status": "active",
       "assignedIssues": []
     },
     "createdAt": "2023-06-25T00:00:00.000Z",
@@ -221,7 +221,7 @@
       "firstName": "Jane",
       "lastName": "Smith",
       "emailAddress": "email@email.com",
-            "status": "active",
+      "status": "active",
       "assignedIssues": []
     },
     "createdBy": {
@@ -229,7 +229,7 @@
       "firstName": "John",
       "lastName": "Doe",
       "emailAddress": "email@email.com",
-            "status": "active",
+      "status": "active",
       "assignedIssues": []
     },
     "createdAt": "2023-06-30T00:00:00.000Z",
