@@ -1,6 +1,7 @@
 stages:
   - Lint
   - Test
+  - Build
 
 .backendJob:
   image: node:20.2.0-alpine3.18
@@ -32,5 +33,13 @@ stages:
   script:
     - npm ci
     - npm run test
+  extends:
+    - .backendJob
+
+'Backend-Build':
+  stage: Build
+  script:
+    - npm ci
+    - npm run build
   extends:
     - .backendJob
