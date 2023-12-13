@@ -25,3 +25,11 @@ stages:
     - npm run lint:no-fix
   extends:
     - .backendJob
+
+'Backend-Test':
+  stage: Test,
+  script:
+    - npm ci
+    - npm run test
+  extends:
+    - .backendJob
