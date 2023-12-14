@@ -1,0 +1,27 @@
+stages:
+  - Lint
+
+.backendJob:
+  image: node:20.2.0-alpine3.18
+  rules:
+    - if: '$SCHEDULED == "true"' # preventing specific job from running, when pipeline is scheduled
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == "main"' # if branch == main job gets executed
+    - if: '$CI_COMMIT_REF_NAME == "development"' # if branch == development job gets executed
+    - if: '$CI_MERGE_REQUEST_TITLE != null' # if merge request title is not null job is never executed
+      when: never
+    - if: '$CI_MERGE_REQUEST_DRAFT == "false"' # if merge request is not a draft job gets executed
+    - exists:
+        - '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME' # if merge request branch exists job gets executed
+    - changes:
+        - './*' # if there are changes in any file job gets executed
+        - '.gitlab-ci.yml'
+
+# Backend Pipeline
+'Backend-Lint':
+  stage: Lint
+  script:
+    - npm ci
+    - npm run lint:no-fix
+  extends:
+    - .backendJob
