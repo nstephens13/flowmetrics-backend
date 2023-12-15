@@ -28,9 +28,10 @@ stages:
     - .backendJob
 
 'Backend-Test':
-  stage: Test,
+  stage: Test
   script:
     - npm ci
     - npm run test
   extends:
     - .backendJob
+
