@@ -29,7 +29,7 @@ module.exports = {
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }], // prohibits use of the ++ operator
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'warn',
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }], // warns against the use of dependencies in certain files
+    'import/no-extraneous-dependencies': 'off',
     'import/no-unresolved': 0, // checks import paths
     '@typescript-eslint/no-explicit-any': 0, // warns against the use of 'any' types
     'linebreak-style': ['error', 'unix'], // sets the desired end-of-line style
