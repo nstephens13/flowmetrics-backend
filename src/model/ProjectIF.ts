@@ -2,7 +2,7 @@ import type { IssueIF } from './IssueIF';
 import type { SLASubscriber } from './SLASubscriber';
 
 /**
- * 
+ *
  * @prop {number} id the id of the project
  * @prop {string} name the name of the project
  * @prop {string} description the description of the project
