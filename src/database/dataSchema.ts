@@ -1,14 +1,7 @@
 import { RxJsonSchema } from 'rxdb';
 import { ProjectIF } from '../model/ProjectIF';
-// import { ChangeType } from '../model/ChangeIF';
-// import { IssueIF } from '../model/IssueIF';
-// import { EmployeeIF } from '../model/EmployeeIF'
-// import { ChangeIF } from '../model/ChangeIF';
-// import { ChangeLogIF } from '../model/ChangeLogIF';
-// import { SLARule } from '../model/SLARule';
-// import { SLASubscriber } from '../model/SLASubscriber';
 
-const project: RxJsonSchema<ProjectIF> = {
+const projectSchema: RxJsonSchema<ProjectIF> = {
   title: 'project schema',
   version: 0,
   type: 'object',
@@ -246,3 +239,4 @@ const project: RxJsonSchema<ProjectIF> = {
   },
   required: ['id', 'name', 'description', 'issues', 'slaSubscriber'],
 };
+export { projectSchema };

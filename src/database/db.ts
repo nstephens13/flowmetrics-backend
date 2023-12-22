@@ -1,7 +1,7 @@
 import { createRxDatabase, addRxPlugin } from 'rxdb';
 import { RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
 import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
-import dataSchema from './dataSchema';
+import { projectSchema } from './dataSchema';
 
 addRxPlugin(RxDBDevModePlugin);
 
@@ -12,9 +12,10 @@ const createDatabase = async () => {
     multiInstance: false,
   });
 
-  const myCollection = await db.collection({
-    name: 'myCollection',
-    schema: dataSchema,
+  await db.addCollections({
+    projects: {
+      schema: projectSchema,
+    },
   });
 
   return db;
