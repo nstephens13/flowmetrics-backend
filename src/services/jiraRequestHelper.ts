@@ -37,7 +37,6 @@ async function fetchGetRequestToEndpoint(endpoint: string) {
   }
 }
 
-
 /**
  * @description function to fetch the user-Infos of the actual user that is connected with its bearer token
  *
@@ -51,8 +50,7 @@ export async function fetchUserInfo(): Promise<EmployeeIF> {
     const user = parseEmployee(response);
     return user == null ? Promise.reject() : user;
   } catch (err) {
-
-    //ToDo Remove mocData fallback
+    // ToDo Remove mocData fallback
     const user = mockDataProject.issues[1].createdBy;
     return user == null ? Promise.reject() : user;
 
@@ -66,8 +64,7 @@ export async function fetchUserInfo(): Promise<EmployeeIF> {
  * @param id the id of the issue that should be fetched
  * @returns {Promise<IssueIF>} will return the issue as a IssueIF or a rejected promise
  */
-export async function fetchIssue(id: number) :Promise<IssueIF> {
-
+export async function fetchIssue(id: number): Promise<IssueIF> {
   const endpoint = `issue/${id}?expand=changelog`;
 
   try {
@@ -75,9 +72,8 @@ export async function fetchIssue(id: number) :Promise<IssueIF> {
     const issue = parseIssue(response);
     return issue == null ? Promise.reject() : issue;
   } catch (err) {
-
-    //ToDo Remove mockData fallback
-    return mockDataProject.issues[1]
+    // ToDo Remove mockData fallback
+    return mockDataProject.issues[1];
 
     // return Promise.reject(err);
   }
@@ -98,21 +94,20 @@ export async function searchNewestIssues(projectKey: string, amount: number): Pr
     const issues: IssueIF[] = response?.issues.map((issueJSON: any) => parseIssue(issueJSON));
     return issues;
   } catch (err) {
-    
-    //ToDo Remove mockData fallback
-    return mockDataProject.issues
+    // ToDo Remove mockData fallback
+    return mockDataProject.issues;
 
     // return Promise.reject(err);
   }
 }
 
-//ToDo remove in further development
+// ToDo remove in further development
 /**
  * @description function to get the whole mockDataProject without asking jira first for dev purposes
  *
  * @param id id of the project that should be fetched
  * @returns {Promise<ProjectIF>} will return the project as a ProjectIF or a rejected promise
  */
-export async function fetchProject(id: string) :Promise<ProjectIF> {
-  return mockDataProject
+export async function fetchProject(id: string): Promise<ProjectIF> {
+  return mockDataProject;
 }

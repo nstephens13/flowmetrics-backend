@@ -30,7 +30,7 @@ const projectSchema: RxJsonSchema<ProjectIF> = {
             },
             required: ['id', 'firstName', 'lastName', 'emailAddress', 'avatarUrl', 'status'],
           },
-          assigneeRestingTime: { type: 'object' },
+          assigneeRestingTime: { type: 'number' },
           createdBy: {
             type: ['object', 'null'],
             properties: {
@@ -47,7 +47,7 @@ const projectSchema: RxJsonSchema<ProjectIF> = {
           closedAt: { type: 'Date' },
           dueTo: { type: 'Date' },
           status: { type: 'string' },
-          statusRestingTime: { type: 'object' },
+          statusRestingTime: { type: 'number' },
           statusChanges: {
             type: 'array',
             items: {
