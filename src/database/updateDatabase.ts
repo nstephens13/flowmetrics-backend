@@ -48,7 +48,6 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
       }
     );
   });
-
 };
 
 export default updateDatabaseWithMockData;
