@@ -18,7 +18,8 @@ server.use(cors());
 
 // connection of the server to the port
 server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  // eslint-disable-next-line no-console
+  console.log(`Server is listening on port ${port}`);
 });
 
 // setting up routes

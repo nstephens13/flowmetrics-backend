@@ -21,7 +21,7 @@ function getRandomInt(max: number) {
  * @param issues - The issue data from the file.
  * @returns An array of Issue objects.
  */
-function loadIssueDataFromFile(issues: any): IssueIF[] {
+function loadIssueDataFromFile(issues: IssueIF[]): IssueIF[] {
   const issueData: IssueIF[] = [];
   structuredClone(issues).forEach((issue: IssueIF) => {
     issueData.push({
@@ -69,110 +69,85 @@ function assignIssueToEmployee(
   return [issuesToReturn, employeesToReturn];
 }
 
+interface AssignedTo {
+  id: number;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  status: string;
+  assignedIssues: never[];
+}
+
+interface CreatedBy {
+  id: number;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  status: string;
+  assignedIssues: never[];
+}
+
+interface IssueWithType1 {
+  id: number;
+  name: string;
+  description: string;
+  assignedTo: null;
+  createdBy: CreatedBy;
+  createdAt: string;
+  closedAt: null;
+  dueTo: string;
+  status: string;
+}
+
+interface IssueWithType2 {
+  id: number;
+  name: string;
+  description: null;
+  assignedTo: AssignedTo;
+  createdBy: CreatedBy;
+  createdAt: string;
+  closedAt: string;
+  dueTo: string;
+  status: string;
+}
+
+interface IssueWithType3 {
+  id: number;
+  name: string;
+  description: string;
+  assignedTo: AssignedTo;
+  createdBy: CreatedBy;
+  createdAt: string;
+  closedAt: null;
+  dueTo: string;
+  status: string;
+}
+
+interface IssueWithType4 {
+  id: number;
+  name: string;
+  description: null;
+  assignedTo: AssignedTo;
+  createdBy: CreatedBy;
+  createdAt: string;
+  closedAt: null;
+  dueTo: string;
+  status: string;
+}
+
+type IssueFile = (IssueWithType1 | IssueWithType2 | IssueWithType3 | IssueWithType4)[];
+
+type SimpleIssue = { id: number; name: string; description: string; assignedTo: null }[];
+
 /**
  * Loads arrays of employees, issues, and milestones from files.
  * @param issueFile - The issue data file.
  * @returns An array containing the loaded arrays of employees, issues, and milestones.
  */
-function loadArraysFromFile(
-  issueFile:
-    | (
-        | {
-            id: number;
-            name: string;
-            description: string;
-            assignedTo: null;
-            createdBy: {
-              id: number;
-              firstName: string;
-              lastName: string;
-              emailAddress: string;
-              status: string;
-              assignedIssues: never[];
-            };
-            createdAt: string;
-            closedAt: null;
-            dueTo: string;
-            status: string;
-          }
-        | {
-            id: number;
-            name: string;
-            description: null;
-            assignedTo: {
-              id: number;
-              firstName: string;
-              lastName: string;
-              emailAddress: string;
-              assignedIssues: never[];
-            };
-            createdBy: {
-              id: number;
-              firstName: string;
-              lastName: string;
-              emailAddress: string;
-              status: string;
-              assignedIssues: never[];
-            };
-            createdAt: string;
-            closedAt: string;
-            dueTo: string;
-            status: string;
-          }
-        | {
-            id: number;
-            name: string;
-            description: string;
-            assignedTo: {
-              id: number;
-              firstName: string;
-              lastName: string;
-              emailAddress: string;
-              status: string;
-              assignedIssues: never[];
-            };
-            createdBy: {
-              id: number;
-              firstName: string;
-              lastName: string;
-              emailAddress: string;
-              assignedIssues: never[];
-            };
-            createdAt: string;
-            closedAt: null;
-            dueTo: string;
-            status: string;
-          }
-        | {
-            id: number;
-            name: string;
-            description: null;
-            assignedTo: {
-              id: number;
-              firstName: string;
-              lastName: string;
-              emailAddress: string;
-              status: string;
-              assignedIssues: never[];
-            };
-            createdBy: {
-              id: number;
-              firstName: string;
-              lastName: string;
-              emailAddress: string;
-              assignedIssues: never[];
-            };
-            createdAt: string;
-            closedAt: null;
-            dueTo: string;
-            status: string;
-          }
-      )[]
-    | { id: number; name: string; description: string; assignedTo: null }[]
-): [EmployeeIF[], IssueIF[]] {
+function loadArraysFromFile(issueFile: IssueFile | SimpleIssue): [EmployeeIF[], IssueIF[]] {
   const employeesArray: EmployeeIF[] = structuredClone(employeeJson) as EmployeeIF[];
   // const issuesArray: IssueIF[] = structuredClone(issueJson) as IssueIF[];
-  const issuesArray: IssueIF[] = loadIssueDataFromFile(issueFile) as IssueIF[];
+  const issuesArray: IssueIF[] = loadIssueDataFromFile(issueFile as IssueIF[]) as IssueIF[];
   return [employeesArray, issuesArray];
 }
 
@@ -183,14 +158,11 @@ function loadArraysFromFile(
  * @returns The mock data based on the specified dataset.
  */
 function getMockData(dataset: number): ProjectIF {
-  let [employeesArrayFromFile, issuesArrayFromFile]: [EmployeeIF[], IssueIF[]] =
-    loadArraysFromFile(issueJson);
+  const employeesArrayFromFile: EmployeeIF[] = loadArraysFromFile(issueJson)[0];
   let [employeesForProject, issuesForProject]: [EmployeeIF[], IssueIF[]] = [[], []];
 
   switch (dataset) {
     case 4: {
-      [employeesArrayFromFile, issuesArrayFromFile] = loadArraysFromFile(issueJson2);
-
       for (let iterator = 0; iterator < 280; iterator++) {
         issuesForProject.push({
           id: iterator + 1,
@@ -202,7 +174,7 @@ function getMockData(dataset: number): ProjectIF {
           assignedTo: null,
           assigneeRestingTime: null,
           createdAt: faker.date.past(),
-          createdBy: employeesArrayFromFile[getRandomInt(employeesForProject.length)],
+          createdBy: loadArraysFromFile(issueJson2)[0][getRandomInt(employeesForProject.length)],
           dueTo: faker.date.future(),
           statusChanges: null,
           assigneeChanges: null,

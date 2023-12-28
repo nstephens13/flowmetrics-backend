@@ -1,10 +1,10 @@
+import { DurationLikeObject } from 'luxon';
 import { ChangeLogIF } from './ChangeLogIF';
 import type { EmployeeIF } from './EmployeeIF';
 import type { SLARule } from './SLARule';
-import { DurationLikeObject } from "luxon";
 
 /**
- * 
+ *
  * @prop {number} id the id of the issue
  * @prop {string} name the name of the issue
  * @prop {string} description the description of the issue
@@ -22,16 +22,30 @@ import { DurationLikeObject } from "luxon";
 export interface IssueIF {
   id: number;
   name: string;
-  description: string | null; 
+  description: string | null;
   assignedTo: EmployeeIF | null;
   assigneeRestingTime: DurationLikeObject | null;
-  createdBy: EmployeeIF | null; 
-  createdAt: Date | null; 
-  closedAt: Date | null; 
+  createdBy: EmployeeIF | null;
+  createdAt: Date | null;
+  closedAt: Date | null;
   dueTo: Date | null;
   status: string | null;
   statusRestingTime: DurationLikeObject | null;
   statusChanges: ChangeLogIF[] | null;
   assigneeChanges: ChangeLogIF[] | null;
   assignedSLARule: SLARule[] | null;
+}
+
+// define the shape of the response from jira
+export interface IssueJiraDTO {
+  id: number;
+  fields: {
+    summary: string;
+    description: string;
+    assignee: never;
+    creator: never;
+    created: never;
+    duedate: never;
+  };
+  changelog: never;
 }

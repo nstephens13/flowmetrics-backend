@@ -1,9 +1,41 @@
-import { Duration, DurationLikeObject } from "luxon";
-import {ChangeIF, ChangeType} from "../model/ChangeIF";
-import {ChangeLogIF} from "../model/ChangeLogIF";
-import type {EmployeeIF} from "../model/EmployeeIF";
-import type {IssueIF} from "../model/IssueIF";
-import {getTimeDifference} from "./timeCalculator";
+import { DurationLikeObject } from 'luxon';
+import { ChangeIF, ChangeType } from '../model/ChangeIF';
+import { ChangeLogIF } from '../model/ChangeLogIF';
+import type { EmployeeIF } from '../model/EmployeeIF';
+import type { IssueIF, IssueJiraDTO } from '../model/IssueIF';
+import getTimeDifference from './timeCalculator';
+import { EmployeeJiraDTO } from '../model/EmployeeIF';
+
+/**
+ * @description function to parse the changes of specific changeType to a ChangeLogIF[]
+ *
+ * @param changeLog parsed changelog
+ * @param changeType the type of change
+ * @returns changelog as a ChangelogIF[] or null if response is null
+ */
+function parseChangeType(changeLog: ChangeLogIF[] | null, changeType: ChangeType): ChangeLogIF[] {
+  if (changeLog === null) {
+    return [];
+  }
+  return (
+    changeLog?.map((history: ChangeLogIF) => {
+      const changes =
+        history.changes?.filter((change: ChangeIF) => change.changeType === changeType) || [];
+      if (changes.length === 0) {
+        return null;
+      }
+      const change: ChangeLogIF = {
+        id: history.id,
+        created: history.created,
+        author: history.author,
+        changes,
+      };
+      return change;
+    }) || []
+  ).filter(
+    (internalChangeLog: ChangeLogIF | null): internalChangeLog is ChangeLogIF => changeLog !== null
+  );
+}
 
 /**
  * @description function to extract the first and last name from the display name
@@ -15,12 +47,10 @@ function extractNames(displayName: string): {
   firstName: string;
   lastName: string;
 } {
-  const commaIndex = displayName.indexOf(",");
+  const commaIndex = displayName.indexOf(',');
 
   if (commaIndex === -1) {
-    throw new Error(
-      'Invalid display name format. Expected format: "LastName, FirstName".'
-    );
+    throw new Error('Invalid display name format. Expected format: "LastName, FirstName".');
   }
 
   const lastName = displayName.slice(0, commaIndex).trim();
@@ -35,7 +65,7 @@ function extractNames(displayName: string): {
  * @param employeeJSON parsed response from jira
  * @returns employee as a EmployeeIF or null if response is null
  */
-export function parseEmployee(employeeJSON: any): EmployeeIF | null {
+export function parseEmployee(employeeJSON: EmployeeJiraDTO): EmployeeIF | null {
   if (employeeJSON == null) {
     return null;
   }
@@ -44,9 +74,9 @@ export function parseEmployee(employeeJSON: any): EmployeeIF | null {
     id: employeeJSON.key,
     firstName,
     lastName,
-    emailAddress: "none",
-    avatarUrl: "none",
-    status: "inactive",
+    emailAddress: 'none',
+    avatarUrl: 'none',
+    status: 'inactive',
   };
 }
 
@@ -56,83 +86,17 @@ export function parseEmployee(employeeJSON: any): EmployeeIF | null {
  * @param response parsed response from jira
  * @returns date as a Date or null if response is null
  */
-export function parseDate(response: any): Date | null {
+export function parseDate(response: string): Date | null {
   if (response != null) {
     return new Date(response);
   }
   return null;
 }
 
-/**
- * @description function to parse the issues to a IssueIF
- *
- * @param response parsed response from jira
- * @returns issue as a IssueIF or null if response is null
- */
-export function parseIssue(response: any): IssueIF | null {
-  if (response == null) {
-    return null;
-  }
-  
-  let assignedTo: EmployeeIF | null = parseEmployee(response.fields.assignee);
-  let createdBy: EmployeeIF | null = parseEmployee(response.fields.creator);
-  let createdAt: Date | null = parseDate(response.fields.created);
-  let dueTo: Date | null = parseDate(response.fields.duedate);
-  let changelog: ChangeLogIF[] | null = parseChangeLog(response.changelog);
-  let statusChanges: ChangeLogIF[] | null = parseChangeType(changelog, ChangeType.statusChange);
-  let assigneeChanges: ChangeLogIF[] | null = parseChangeType(changelog, ChangeType.assigneeChange);
-  let assigneeRestingTime: DurationLikeObject | null = getTimeDifference(assigneeChanges?.[assigneeChanges?.length - 1] as ChangeLogIF);
-  let statusRestingTime: DurationLikeObject | null = getTimeDifference(statusChanges?.[statusChanges?.length - 1] as ChangeLogIF);
-
-  const issue: IssueIF = {
-    id: response?.id,
-    name: response.fields?.summary,
-    description: response.fields?.description,
-    assignedTo: assignedTo,
-    assigneeRestingTime: assigneeRestingTime,
-    createdBy: createdBy,
-    createdAt: createdAt,
-    closedAt: null,
-    dueTo: dueTo,
-    status: null,
-    statusRestingTime: statusRestingTime,
-    statusChanges: statusChanges,
-    assigneeChanges: assigneeChanges,
-    assignedSLARule: null,
-  };
-  return issue;
-}
-
-/**
- * @description function to parse the changelog to a ChangeLogIF[]
- *
- * @param response parsed response from jira
- * @returns changelog as a ChangeLogIF[] or null if response is null
- */
-export function parseChangeLog(response: any): ChangeLogIF[] | null {
-  if (response == null) {
-    return null;
-  }
-  const changeLogs: ChangeLogIF[] = response?.histories?.map((history: any) =>
-    {
-      if (history === null) {
-        return null;
-      }
-      let changes = parseChangeHistory(history.items);
-      if (changes?.length === 0) {
-        return null;
-      } else {
-        const change: ChangeLogIF = {
-          id: history.id,
-          created: parseDate(history.created),
-          author: parseEmployee(history.author),
-          changes: changes,
-        };
-        return change;
-      }
-    }
-  ).filter((changeLog: ChangeLogIF | null) => changeLog !== null);
-  return changeLogs;
+interface changeHistory {
+  field: string;
+  fromString: string;
+  toString: string;
 }
 
 /**
@@ -141,11 +105,11 @@ export function parseChangeLog(response: any): ChangeLogIF[] | null {
  * @param items parsed items from history
  * @returns items as a ChangeIF[] or null if response is null
  */
-function parseChangeHistory(items: any): ChangeIF[] | null {
+function parseChangeHistory(items: changeHistory[]): ChangeIF[] {
   if (items === null) {
-    return null;
+    return [];
   }
-  const changeHistories: ChangeIF[] = items?.map((itemJSON: any) => {
+  const changes = items?.map((itemJSON: changeHistory) => {
     let changeType: ChangeType | null = null;
     switch (itemJSON.field) {
       case ChangeType.assigneeChange:
@@ -159,43 +123,100 @@ function parseChangeHistory(items: any): ChangeIF[] | null {
     }
     if (changeType === null) {
       return null;
-    } else {
-      const changeHistory: ChangeIF = {
-        changeType,
-        from: itemJSON.fromString,
-        to: itemJSON.toString,
-      };
-      return changeHistory;
     }
-  }).filter((changeHistory: ChangeIF | null) => changeHistory !== null);
-  return changeHistories;
+    const changeHistory: ChangeIF = {
+      changeType,
+      from: itemJSON.fromString,
+      to: itemJSON.toString,
+    };
+    return changeHistory;
+  });
+
+  return changes.filter((change: ChangeIF | null) => change !== null) as ChangeIF[];
+}
+
+interface history {
+  items: changeHistory[];
+  id: number;
+  created: string;
+  author: EmployeeJiraDTO;
+}
+
+interface ResponseChangelog {
+  histories: history[];
 }
 
 /**
- * @description function to parse the changes of specific changeType to a ChangeLogIF[]
+ * @description function to parse the changelog to a ChangeLogIF[]
  *
- * @param changeLog parsed changelog
- * @param changeType the type of change
- * @returns changelog as a ChangelogIF[] or null if response is null
+ * @param response parsed response from jira
+ * @returns changelog as a ChangeLogIF[] or null if response is null
  */
-function parseChangeType(changeLog: ChangeLogIF[] | null, changeType: ChangeType): ChangeLogIF[] | null {
-  if (changeLog === null) {
-    return null;
+export function parseChangeLog(response: ResponseChangelog): ChangeLogIF[] {
+  if (response == null) {
+    return [];
   }
-  const changeLogs: ChangeLogIF[] = (changeLog?.map((history: ChangeLogIF) => {
-    let changes = history.changes?.filter((change: ChangeIF) => change.changeType === changeType) || [];
-    if (changes.length === 0) {
+  const changeLog = response?.histories?.map((history: history) => {
+    if (history === null) {
       return null;
-    } else {
-      const change: ChangeLogIF = {
-        id: history.id,
-        created: history.created,
-        author: history.author,
-        changes: changes,
-      };
-      return change;
     }
-  }) || []).filter((changeLog: ChangeLogIF | null): changeLog is ChangeLogIF => changeLog !== null);
-  return changeLogs;
+    const changes = parseChangeHistory(history.items);
+    if (changes?.length === 0) {
+      return null;
+    }
+    const change: ChangeLogIF = {
+      id: history.id,
+      created: parseDate(history.created),
+      author: parseEmployee(history.author),
+      changes,
+    };
+    return change;
+  });
+
+  return changeLog?.filter((change: ChangeLogIF | null) => change !== null) as ChangeLogIF[];
 }
 
+/**
+ * @description function to parse the issues to a IssueIF
+ *
+ * @param response parsed response from jira
+ * @returns issue as a IssueIF or null if response is null
+ */
+export function parseIssue(response: IssueJiraDTO): IssueIF | null {
+  if (response == null) {
+    return null;
+  }
+
+  const assignedTo: EmployeeIF | null = parseEmployee(response.fields.assignee);
+  const createdBy: EmployeeIF | null = parseEmployee(response.fields.creator);
+  const createdAt: Date | null = parseDate(response.fields.created);
+  const dueTo: Date | null = parseDate(response.fields.duedate);
+  const changelog: ChangeLogIF[] | null = parseChangeLog(response.changelog);
+  const statusChanges: ChangeLogIF[] = parseChangeType(changelog, ChangeType.statusChange);
+  const assigneeChanges: ChangeLogIF[] = parseChangeType(changelog, ChangeType.assigneeChange);
+
+  const assigneeRestingTime: DurationLikeObject | null = assigneeChanges
+    ? getTimeDifference(assigneeChanges?.[assigneeChanges.length - 1] as ChangeLogIF)
+    : null;
+
+  const statusRestingTime: DurationLikeObject | null = assigneeChanges
+    ? getTimeDifference(statusChanges?.[statusChanges.length - 1] as ChangeLogIF)
+    : null;
+
+  return {
+    id: response?.id,
+    name: response.fields?.summary,
+    description: response.fields?.description,
+    assignedTo,
+    assigneeRestingTime,
+    createdBy,
+    createdAt,
+    closedAt: null,
+    dueTo,
+    status: null,
+    statusRestingTime,
+    statusChanges,
+    assigneeChanges,
+    assignedSLARule: null,
+  };
+}

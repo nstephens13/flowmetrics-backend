@@ -1,8 +1,8 @@
-import { EmployeeIF } from "./EmployeeIF";
+import { EmployeeIF } from './EmployeeIF';
 
 export enum ChangeType {
-    statusChange = "status",
-    assigneeChange = "assignee",
+  statusChange = 'status',
+  assigneeChange = 'assignee',
 }
 
 /**
@@ -11,7 +11,7 @@ export enum ChangeType {
  * @prop {string | EmployeeIF} to the new value after the change
  */
 export interface ChangeIF {
-    changeType: ChangeType | null;
-    from: ChangeType extends ChangeType.assigneeChange ? EmployeeIF : string | null;
-    to: ChangeType extends ChangeType.assigneeChange ? EmployeeIF : string | null;
+  changeType: ChangeType | null;
+  from: ChangeType extends ChangeType.assigneeChange ? EmployeeIF : string | null;
+  to: ChangeType extends ChangeType.assigneeChange ? EmployeeIF : string | null;
 }

@@ -16,3 +16,8 @@ export interface EmployeeIF {
   avatarUrl: string;
   status: 'active' | 'inactive';
 }
+
+export interface EmployeeJiraDTO {
+  key: number;
+  displayName: string;
+}
