@@ -44,5 +44,11 @@ module.exports = {
         '@typescript-eslint/ban-types': 'warn', // warning for certain TypeScript types
       },
     },
+    {
+      files: ['**/*.spec.js', '**/*.spec.jsx', '**/*.spec.ts', '**/*.spec.tsx'],
+      env: {
+        jest: true,
+      },
+    },
   ],
 };
