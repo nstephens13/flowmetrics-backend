@@ -1,8 +1,8 @@
 import { Duration, DurationLikeObject } from 'luxon';
-import { ChangeIF, ChangeType } from '../model/ChangeIF';
-import { ChangeLogIF } from '../model/ChangeLogIF';
-import type { EmployeeIF } from '../model/EmployeeIF';
-import type { IssueIF } from '../model/IssueIF';
+import { ChangeIF, ChangeType } from '@/model/Issue/ChangeIF';
+import { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
+import type { EmployeeIF } from '@/model/EmployeeIF';
+import type { IssueIF } from '@/model/Issue/IssueIF';
 import { getTimeDifference } from './timeCalculator';
 
 /**
@@ -45,6 +45,7 @@ export function parseEmployee(employeeJSON: any): EmployeeIF | null {
     emailAddress: 'none',
     avatarUrl: 'none',
     status: 'inactive',
+    key: 'none',
   };
 }
 
@@ -103,7 +104,8 @@ export function parseIssue(response: any): IssueIF | null {
     statusRestingTime,
     statusChanges,
     assigneeChanges,
-    assignedSLARule: null,
+    assignedSlaRule: null,
+    state: null,
   };
   return issue;
 }

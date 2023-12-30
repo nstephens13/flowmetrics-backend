@@ -15,4 +15,5 @@ export interface EmployeeIF {
   // if Jira use the 48x48 px avatar
   avatarUrl: string;
   status: 'active' | 'inactive';
+  key: string;
 }

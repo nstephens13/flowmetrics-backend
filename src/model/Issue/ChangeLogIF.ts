@@ -1,5 +1,5 @@
-import { EmployeeIF } from './EmployeeIF';
-import { ChangeIF } from './ChangeIF';
+import type { EmployeeIF } from '@/model/EmployeeIF';
+import type { ChangeIF } from '@/model/Issue/ChangeIF';
 /**
  *
  * @prop {number} id the id of the change
