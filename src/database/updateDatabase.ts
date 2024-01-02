@@ -11,7 +11,7 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
         console.error('Error adding data to Project table:', err.message);
         return;
       }
-      console.log('Data added to employee table:', this.changes, 'row(s) affected');
+      console.log('Data added to Project table:', this.changes, 'row(s) affected');
     }
   );
   for (const issue of mockData.issues) {
@@ -31,7 +31,7 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
       ],
       function (err) {
         if (err) {
-          console.error('Error adding data to Project table:', err.message);
+          console.error('Error adding data to Issue table:', err.message);
           return;
         }
         console.log('Data added to Issue table:', this.changes, 'row(s) affected');
@@ -52,12 +52,31 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
 
       function (err) {
         if (err) {
-          console.error('Error adding data to Project table:', err.message);
+          console.error('Error adding data to Employee table:', err.message);
           return;
         }
-        console.log('Data added to employee table:', this.changes, 'row(s) affected');
+        console.log('Data added to Employee table:', this.changes, 'row(s) affected');
       }
     );
+    for (const Slarule of issue.assignedSlaRule!) {
+      db.run(
+        'INSERT INTO SLARule (id, name, durationInDays, expirationDate, occurredIn) VALUES (?, ?, ?, ?, ?)',
+        [
+          Slarule.id,
+          Slarule.name,
+          Slarule.reactionTimeInDays,
+          Slarule.expirationDate,
+          Slarule.occurredIn,
+        ],
+        function (err) {
+          if (err) {
+            console.error('Error adding data to Slarule table:', err.message);
+            return;
+          }
+          console.log('Data added to Slarule table:', this.changes, 'row(s) affected');
+        }
+      );
+    }
   }
 
   console.log('Data added to all tables.');
