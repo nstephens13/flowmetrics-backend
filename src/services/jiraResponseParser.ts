@@ -1,9 +1,9 @@
 import { Duration, DurationLikeObject } from 'luxon';
-import { ChangeIF, ChangeType } from '@/model/Issue/ChangeIF';
 import { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
 import type { EmployeeIF } from '@/model/EmployeeIF';
 import type { IssueIF } from '@/model/Issue/IssueIF';
 import { getTimeDifference } from './timeCalculator';
+import { ChangeIF, ChangeType } from '../model/Issue/ChangeIF';
 
 /**
  * @description function to extract the first and last name from the display name

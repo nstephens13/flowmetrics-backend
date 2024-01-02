@@ -1,5 +1,5 @@
 import sqlite3 from 'sqlite3';
-import getMockData from '@/__mockdata__/mockDataComposer';
+import getMockData from '../__mockdata__/mockDataComposer';
 
 const updateDatabaseWithMockData = (db: sqlite3.Database) => {
   const mockProject = getMockData(4);
