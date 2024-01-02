@@ -23,12 +23,13 @@ const createTables = (db: sqlite3.Database) => {
   `);
 
   db.run(`
-    CREATE TABLE IF NOT EXISTS employee (
+    CREATE TABLE IF NOT EXISTS Employee (
       id INTEGER PRIMARY KEY,
       firstName TEXT NOT NULL,
       lastName TEXT NOT NULL,
       emailAddress TEXT NOT NULL,
       avatarUrl TEXT,
+      key TEXT,
       status TEXT CHECK (status IN ('active', 'inactive'))
     )
   `);
@@ -60,8 +61,8 @@ const createTables = (db: sqlite3.Database) => {
       assigneeRestingTime TEXT,
       projectId INTEGER,
       FOREIGN KEY (projectId) REFERENCES Project(id),
-      FOREIGN KEY (assignedToId) REFERENCES employee(id),
-      FOREIGN KEY (createdById) REFERENCES employee(id)
+      FOREIGN KEY (assignedToId) REFERENCES Employee(id),
+      FOREIGN KEY (createdById) REFERENCES Employee(id)
     )
   `);
 
@@ -72,7 +73,7 @@ const createTables = (db: sqlite3.Database) => {
       created DATE,
       authorId INTEGER,
       issueId INTEGER,
-      FOREIGN KEY (authorId) REFERENCES employee(id),
+      FOREIGN KEY (authorId) REFERENCES Employee(id),
       FOREIGN KEY (issueId) REFERENCES Issue(id)
     )
   `);
@@ -85,9 +86,9 @@ const createTables = (db: sqlite3.Database) => {
       changeType TEXT,
       fromValue TEXT,
       toValue TEXT,
-      employeeId INTEGER,
+      EmployeeId INTEGER,
       FOREIGN KEY (changeLogId) REFERENCES ChangeLog(id),
-      FOREIGN KEY (employeeId) REFERENCES employee(id)
+      FOREIGN KEY (EmployeeId) REFERENCES Employee(id)
     )
   `);
 
@@ -122,7 +123,7 @@ const initDatabase = () => {
     SELECT name FROM sqlite_master WHERE type='table' AND (
       name = 'SLASubscriber' OR
       name = 'SLARule' OR
-      name = 'employee' OR
+      name = 'Employee' OR
       name = 'Project' OR
       name = 'Issue' OR
       name = 'ChangeLog' OR
