@@ -1,12 +1,14 @@
 import sqlite3 from 'sqlite3';
-import getMockData from '../__mockdata__/mockDataComposer';
-import { getProject } from '../__mockdata__/mockdata';
 
-const updateDatabaseWithMockData = (db: sqlite3.Database) => {
-  const mockData = getProject(2);
+const updateDatabaseWithproject = (
+  db: sqlite3.Database,
+  projectId: number,
+  mockProject: (projectId: number) => any
+) => {
+  const project = mockProject(projectId);
   db.run(
     'INSERT INTO Project (id, name, description, slaSubscriberId) VALUES (?, ?, ?, ?)',
-    [mockData.id, mockData.name, mockData.description, mockData.slaSubscriber?.id],
+    [project.id, project.name, project.description, project.slaSubscriber?.id],
     function (err) {
       if (err) {
         console.error('Error adding data to Project table:', err.message);
@@ -15,7 +17,7 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
       console.log('Data added to Project table:', this.changes, 'row(s) affected');
     }
   );
-  for (const issue of mockData.issues) {
+  for (const issue of project.issues) {
     db.run(
       'INSERT INTO Issue (name, assignedToId, createdById, createdAt, closedAt, dueTo, status, statusRestingTime, assigneeRestingTime, projectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [
@@ -28,7 +30,7 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
         issue.status,
         issue.statusRestingTime,
         issue.assigneeRestingTime,
-        mockData.id,
+        project.id,
       ],
       function (err) {
         if (err) {
@@ -162,4 +164,4 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
   console.log('Data added to all tables.');
 };
 
-export default updateDatabaseWithMockData;
+export default updateDatabaseWithproject;

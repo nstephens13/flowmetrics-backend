@@ -1,6 +1,7 @@
 import sqlite3 from 'sqlite3';
 import path from 'path';
-import updateDatabaseWithMockData from './updateDatabase';
+import updateDatabaseWithproject from './updateDatabase';
+import { getProject } from '../__mockdata__/mockdata';
 
 const createTables = (db: sqlite3.Database) => {
   db.run(`
@@ -127,11 +128,11 @@ const initDatabase = () => {
     } else if (row) {
       // Tables already exist, log a message and proceed to data update
       console.log('Tables already exist. Skipping table creation.');
-      updateDatabaseWithMockData(db);
+      for (let projectId = 1; projectId <= 20; projectId++) {
+        updateDatabaseWithproject(db, projectId, getProject);
+      }
     } else {
-      // Tables do not exist, proceed to table creation
       createTables(db);
-      updateDatabaseWithMockData(db);
     }
   });
 
