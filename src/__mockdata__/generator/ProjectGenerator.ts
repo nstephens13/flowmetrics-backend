@@ -1,7 +1,7 @@
 import type { ProjectIF } from '@/model/ProjectIF';
 import type { IssueIF } from '@/model/Issue/IssueIF';
-import generateIssues from '@/__mockdata__/generator/IssuesGenerator';
-import projectsJsonData from '@/__mockdata__/json/ProjectsList.json';
+import generateIssues from './IssuesGenerator';
+import projectsJsonData from '../json/ProjectsList.json';
 
 export default function generateProject(projectNumber: number, numberOfIssues: number): ProjectIF {
   const projects: ProjectIF[] | null = projectsJsonData as ProjectIF[];

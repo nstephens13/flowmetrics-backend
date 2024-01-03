@@ -7,10 +7,11 @@ import type { EmployeeIF } from '@/model/EmployeeIF';
 import { parseEmployee, parseIssue } from './jiraResponseParser';
 import getMockData from '../__mockdata__/mockDataComposer';
 import { ProjectIF } from '@/model/ProjectIF';
+import { getProject } from "../__mockdata__/mockdata";
 
 dotenv.config();
 
-const mockDataProject: ProjectIF = getMockData(4);
+const mockDataProject: ProjectIF = getProject(2);
 
 // getting the url from the environment-variable
 const url = `https://${process.env.JIRA_URL}/rest/api/2/`;

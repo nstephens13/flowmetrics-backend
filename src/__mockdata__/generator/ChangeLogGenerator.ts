@@ -1,7 +1,7 @@
 import type { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
 import type { EmployeeIF } from '@/model/EmployeeIF';
 import type { ChangeIF } from '@/model/Issue/ChangeIF';
-import { ChangeType } from '@/model/Issue/ChangeIF';
+import { ChangeType } from '../../model/Issue/ChangeIF';
 import {
   getRandomEmployee,
   getDatesBetween,

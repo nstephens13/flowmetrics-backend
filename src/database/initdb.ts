@@ -81,12 +81,14 @@ const createTables = (db: sqlite3.Database) => {
   // Create the Change table
   db.run(`
     CREATE TABLE IF NOT EXISTS Change (
-      id INTEGER PRIMARY KEY,
       changeLogId INTEGER,
       changeType TEXT,
-      fromValue TEXT,
-      toValue TEXT,
+      fromStatus TEXT,
+      toStatus TEXT,
+      fromEmployee TEXT,
+      toEmployee TEXT,
       EmployeeId INTEGER,
+      PRIMARY KEY (changeLogId, EmployeeId),
       FOREIGN KEY (changeLogId) REFERENCES ChangeLog(id),
       FOREIGN KEY (EmployeeId) REFERENCES Employee(id)
     )

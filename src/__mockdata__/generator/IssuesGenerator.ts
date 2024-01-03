@@ -7,7 +7,7 @@ import {
   issueTypes,
   getDateAndTimeInPast,
   getRandomIntBetween,
-} from '@/__mockdata__/generator/HelperFunctions';
+} from './HelperFunctions';
 import { generateAssigneeChanges, generateStatusChanges } from './ChangeLogGenerator';
 import type { EmployeeIF } from '@/model/EmployeeIF';
 

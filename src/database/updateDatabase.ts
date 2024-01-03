@@ -1,8 +1,9 @@
 import sqlite3 from 'sqlite3';
 import getMockData from '../__mockdata__/mockDataComposer';
+import { getProject } from '../__mockdata__/mockdata';
 
 const updateDatabaseWithMockData = (db: sqlite3.Database) => {
-  const mockData = getMockData(4);
+  const mockData = getProject(2);
   db.run(
     'INSERT INTO Project (id, name, description, slaSubscriberId) VALUES (?, ?, ?, ?)',
     [mockData.id, mockData.name, mockData.description, mockData.slaSubscriber?.id],
@@ -58,24 +59,100 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
         console.log('Data added to Employee table:', this.changes, 'row(s) affected');
       }
     );
-    for (const Slarule of issue.assignedSlaRule!) {
-      db.run(
-        'INSERT INTO SLARule (id, name, durationInDays, expirationDate, occurredIn) VALUES (?, ?, ?, ?, ?)',
-        [
-          Slarule.id,
-          Slarule.name,
-          Slarule.reactionTimeInDays,
-          Slarule.expirationDate,
-          Slarule.occurredIn,
-        ],
-        function (err) {
-          if (err) {
-            console.error('Error adding data to Slarule table:', err.message);
-            return;
+
+    if (issue.statusChanges && Array.isArray(issue.statusChanges)) {
+      for (const statusChange of issue.statusChanges) {
+        if (statusChange.changes && Array.isArray(statusChange.changes)) {
+          for (const change of statusChange.changes) {
+            db.run(
+              'INSERT INTO Change (changeLogId, changeType, fromStatus, toStatus, EmployeeId) VALUES (?, ?, ?, ?, ?)',
+              [statusChange.id, change.changeType, change.from, change.to, statusChange.author?.id],
+              function (err) {
+                if (err) {
+                  console.error('Error adding data to Change table:', err.message);
+                  return;
+                }
+                console.log('Data added to Change table:', this.changes, 'row(s) affected');
+              }
+            );
           }
-          console.log('Data added to Slarule table:', this.changes, 'row(s) affected');
         }
-      );
+        db.run(
+          'INSERT INTO ChangeLog (id, created, authorId, issueId) VALUES (?, ?, ?, ?)',
+          [statusChange.id, statusChange.created, statusChange.author?.id, issue.id],
+          function (err) {
+            if (err) {
+              console.error('Error adding data to ChangeLog table:', err.message);
+              return;
+            }
+            console.log('Data added to ChangeLog table:', this.changes, 'row(s) affected');
+          }
+        );
+      }
+    } else {
+      console.warn('issue.statusChanges is either null or not an array');
+    }
+
+    if (issue.assigneeChanges && Array.isArray(issue.assigneeChanges)) {
+      for (const assigneeChange of issue.assigneeChanges) {
+        if (assigneeChange.changes && Array.isArray(assigneeChange.changes)) {
+          for (const change of assigneeChange.changes) {
+            db.run(
+              'INSERT INTO Change (changeLogId, changeType, fromEmployee, toEmployee, EmployeeId) VALUES (?, ?, ?, ?, ?)',
+              [
+                assigneeChange.id,
+                change.changeType,
+                typeof change.from === 'object' && 'id' in change.from! ? change.from.id : null,
+                typeof change.to === 'object' && 'id' in change.to! ? change.to.id : null,
+                assigneeChange.author?.id,
+              ],
+              function (err) {
+                if (err) {
+                  console.error('Error adding data to Change table:', err.message);
+                  return;
+                }
+                console.log('Data added to Change table:', this.changes, 'row(s) affected');
+              }
+            );
+          }
+        }
+        db.run(
+          'INSERT INTO ChangeLog (id, created, authorId, issueId) VALUES (?, ?, ?, ?)',
+          [assigneeChange.id, assigneeChange.created, assigneeChange.author?.id, issue.id],
+          function (err) {
+            if (err) {
+              console.error('Error adding data to ChangeLog table:', err.message);
+              return;
+            }
+            console.log('Data added to ChangeLog table:', this.changes, 'row(s) affected');
+          }
+        );
+      }
+    } else {
+      console.warn('issue.statusChanges is either null or not an array');
+    }
+    if (issue.assignedSlaRule && Array.isArray(issue.assignedSlaRule)) {
+      for (const Slarule of issue.assignedSlaRule) {
+        db.run(
+          'INSERT INTO SLARule (id, name, durationInDays, expirationDate, occurredIn) VALUES (?, ?, ?, ?, ?)',
+          [
+            Slarule.id,
+            Slarule.name,
+            Slarule.reactionTimeInDays,
+            Slarule.expirationDate,
+            Slarule.occurredIn,
+          ],
+          function (err) {
+            if (err) {
+              console.error('Error adding data to SLARule table:', err.message);
+              return;
+            }
+            console.log('Data added to SLARule table:', this.changes, 'row(s) affected');
+          }
+        );
+      }
+    } else {
+      console.warn('issue.assignedSlaRule is either null or not an array');
     }
   }
 
