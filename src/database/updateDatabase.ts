@@ -102,8 +102,12 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
               [
                 assigneeChange.id,
                 change.changeType,
-                typeof change.from === 'object' && 'id' in change.from! ? change.from.id : null,
-                typeof change.to === 'object' && 'id' in change.to! ? change.to.id : null,
+                typeof change.from === 'object' && 'firstName' in change.from!
+                  ? change.from.firstName
+                  : null,
+                typeof change.to === 'object' && 'firstName' in change.to!
+                  ? change.to.firstName
+                  : null,
                 assigneeChange.author?.id,
               ],
               function (err) {
