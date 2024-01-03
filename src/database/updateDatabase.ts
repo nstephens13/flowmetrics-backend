@@ -138,13 +138,15 @@ const updateDatabaseWithproject = (
     if (issue.assignedSlaRule && Array.isArray(issue.assignedSlaRule)) {
       for (const Slarule of issue.assignedSlaRule) {
         db.run(
-          'INSERT INTO SLARule (id, name, durationInDays, expirationDate, occurredIn, issueId) VALUES (?, ?, ?, ?, ?, ?)',
+          'INSERT INTO SLARule (id, name, reactionTimeInDays, expirationDate, occurredIn, priority, issueType, issueId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
           [
             Slarule.id,
             Slarule.name,
             Slarule.reactionTimeInDays,
             Slarule.expirationDate,
             Slarule.occurredIn,
+            Slarule.priority,
+            String(Slarule.issueType),
             issue.id,
           ],
           function (err) {
