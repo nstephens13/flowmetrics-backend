@@ -50,7 +50,6 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
         issue.assignedTo?.status,
         issue.assignedTo?.key,
       ],
-
       function (err) {
         if (err) {
           console.error('Error adding data to Employee table:', err.message);
@@ -65,8 +64,8 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
         if (statusChange.changes && Array.isArray(statusChange.changes)) {
           for (const change of statusChange.changes) {
             db.run(
-              'INSERT INTO Change (changeLogId, changeType, fromStatus, toStatus, EmployeeId) VALUES (?, ?, ?, ?, ?)',
-              [statusChange.id, change.changeType, change.from, change.to, statusChange.author?.id],
+              'INSERT INTO Change (changeLogId, changeType, fromStatus, toStatus) VALUES (?, ?, ?, ?)',
+              [statusChange.id, change.changeType, change.from, change.to],
               function (err) {
                 if (err) {
                   console.error('Error adding data to Change table:', err.message);
@@ -98,7 +97,7 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
         if (assigneeChange.changes && Array.isArray(assigneeChange.changes)) {
           for (const change of assigneeChange.changes) {
             db.run(
-              'INSERT INTO Change (changeLogId, changeType, fromEmployee, toEmployee, EmployeeId) VALUES (?, ?, ?, ?, ?)',
+              'INSERT INTO Change (changeLogId, changeType, fromEmployee, toEmployee) VALUES (?, ?, ?, ?)',
               [
                 assigneeChange.id,
                 change.changeType,
@@ -108,7 +107,6 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
                 typeof change.to === 'object' && 'firstName' in change.to!
                   ? change.to.firstName
                   : null,
-                assigneeChange.author?.id,
               ],
               function (err) {
                 if (err) {
@@ -138,13 +136,14 @@ const updateDatabaseWithMockData = (db: sqlite3.Database) => {
     if (issue.assignedSlaRule && Array.isArray(issue.assignedSlaRule)) {
       for (const Slarule of issue.assignedSlaRule) {
         db.run(
-          'INSERT INTO SLARule (id, name, durationInDays, expirationDate, occurredIn) VALUES (?, ?, ?, ?, ?)',
+          'INSERT INTO SLARule (id, name, durationInDays, expirationDate, occurredIn, issueId) VALUES (?, ?, ?, ?, ?, ?)',
           [
             Slarule.id,
             Slarule.name,
             Slarule.reactionTimeInDays,
             Slarule.expirationDate,
             Slarule.occurredIn,
+            issue.id,
           ],
           function (err) {
             if (err) {

@@ -12,17 +12,6 @@ const createTables = (db: sqlite3.Database) => {
   `);
 
   db.run(`
-    CREATE TABLE IF NOT EXISTS SLARule (
-      id INTEGER PRIMARY KEY,
-      name TEXT,
-      durationInDays INTEGER,
-      expirationDate DATE,
-      maxAssignedEmployees INTEGER,
-      occurredIn TEXT
-    )
-  `);
-
-  db.run(`
     CREATE TABLE IF NOT EXISTS Employee (
       id INTEGER PRIMARY KEY,
       firstName TEXT NOT NULL,
@@ -66,43 +55,42 @@ const createTables = (db: sqlite3.Database) => {
     )
   `);
 
-  // Create the ChangeLog table
   db.run(`
-    CREATE TABLE IF NOT EXISTS ChangeLog (
+    CREATE TABLE IF NOT EXISTS SLARule (
       id INTEGER PRIMARY KEY,
-      created DATE,
-      authorId INTEGER,
+      name TEXT,
+      reactionTimeInDays INTEGER,
+      expirationDate DATE,
+      occurredIn TEXT,
+      priority TEXT,
+      issueType TEXT,
       issueId INTEGER,
-      FOREIGN KEY (authorId) REFERENCES Employee(id),
       FOREIGN KEY (issueId) REFERENCES Issue(id)
     )
   `);
 
+  // Create the ChangeLog table
+  db.run(`
+  CREATE TABLE IF NOT EXISTS ChangeLog (
+    id INTEGER PRIMARY KEY,
+    created DATE,
+    authorId INTEGER,
+    issueId INTEGER,
+    FOREIGN KEY (authorId) REFERENCES Employee(id),
+    FOREIGN KEY (issueId) REFERENCES Issue(id)
+  )
+`);
+
   // Create the Change table
   db.run(`
     CREATE TABLE IF NOT EXISTS Change (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       changeLogId INTEGER,
       changeType TEXT,
       fromStatus TEXT,
       toStatus TEXT,
       fromEmployee TEXT,
       toEmployee TEXT,
-      EmployeeId INTEGER,
-      PRIMARY KEY (changeLogId, EmployeeId),
-      FOREIGN KEY (changeLogId) REFERENCES ChangeLog(id),
-      FOREIGN KEY (EmployeeId) REFERENCES Employee(id)
-    )
-  `);
-
-  db.run(`
-    CREATE TABLE IF NOT EXISTS IssueChangeLog (
-      id INTEGER PRIMARY KEY,
-      issueId INTEGER,
-      changeLogId INTEGER,
-      changeType TEXT,
-      fromValue TEXT,
-      toValue TEXT,
-      FOREIGN KEY (issueId) REFERENCES Issue(id),
       FOREIGN KEY (changeLogId) REFERENCES ChangeLog(id)
     )
   `);
@@ -129,8 +117,7 @@ const initDatabase = () => {
       name = 'Project' OR
       name = 'Issue' OR
       name = 'ChangeLog' OR
-      name = 'Change' OR
-      name = 'IssueChangeLog'
+      name = 'Change'
     );
   `;
 
