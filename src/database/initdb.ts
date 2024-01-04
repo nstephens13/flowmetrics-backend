@@ -4,7 +4,7 @@ import updateDatabaseWithproject from './updateDatabase';
 import { getProject } from '../__mockdata__/mockdata';
 import getMockData from '../__mockdata__/mockDataComposer';
 
-const createTables = (db: sqlite3.Database) => {
+const createTables = (db: sqlite3.Database, callback: () => void) => {
   db.run(`
     CREATE TABLE IF NOT EXISTS SLASubscriber (
       id INTEGER PRIMARY KEY,
@@ -94,6 +94,7 @@ const createTables = (db: sqlite3.Database) => {
   `);
 
   console.log('Tables created successfully.');
+  callback();
 };
 
 const initDatabase = () => {
@@ -102,7 +103,6 @@ const initDatabase = () => {
     if (err) {
       console.error('Error opening database:', err.message);
     } else {
-      // Log a message indicating that the database has been created or opened
       console.log('Database opened or created successfully at:', databasePath);
     }
   });
@@ -127,13 +127,16 @@ const initDatabase = () => {
         db.run('BEGIN TRANSACTION;');
         try {
           console.log('Tables already exist. Skipping table creation.');
-          for (let projectId = 1; projectId <= 7; projectId++) {
-            updateDatabaseWithproject(db, projectId, getMockData);
-          }
-          for (let projectId = 1; projectId <= 20; projectId++) {
-            updateDatabaseWithproject(db, projectId, getProject);
-          }
-          db.run('COMMIT;');
+          const updateCallback = () => {
+            for (let projectId = 1; projectId <= 7; projectId++) {
+              updateDatabaseWithproject(db, projectId, getMockData);
+            }
+            for (let projectId = 1; projectId <= 20; projectId++) {
+              updateDatabaseWithproject(db, projectId, getProject);
+            }
+            db.run('COMMIT;');
+          };
+          createTables(db, updateCallback);
         } catch (error: any) {
           db.run('ROLLBACK;');
           console.error('Error in transaction:', error.message);
@@ -143,8 +146,16 @@ const initDatabase = () => {
       db.serialize(() => {
         db.run('BEGIN TRANSACTION;');
         try {
-          createTables(db); // stop and restart the server to add data
-          db.run('COMMIT;');
+          const createCallback = () => {
+            for (let projectId = 1; projectId <= 7; projectId++) {
+              updateDatabaseWithproject(db, projectId, getMockData);
+            }
+            for (let projectId = 1; projectId <= 20; projectId++) {
+              updateDatabaseWithproject(db, projectId, getProject);
+            }
+            db.run('COMMIT;');
+          };
+          createTables(db, createCallback);
         } catch (error: any) {
           db.run('ROLLBACK;');
           console.error('Error in transaction:', error.message);
