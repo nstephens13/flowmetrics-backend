@@ -25,7 +25,6 @@ const createTables = (db: sqlite3.Database) => {
     )
   `);
 
-  // Create the Project table
   db.run(`
     CREATE TABLE IF NOT EXISTS Project (
       id INTEGER PRIMARY KEY,
@@ -36,7 +35,6 @@ const createTables = (db: sqlite3.Database) => {
     )
   `);
 
-  // Create the Issue table
   db.run(`
     CREATE TABLE IF NOT EXISTS Issue (
       id INTEGER PRIMARY KEY,
@@ -71,7 +69,6 @@ const createTables = (db: sqlite3.Database) => {
     )
   `);
 
-  // Create the ChangeLog table
   db.run(`
   CREATE TABLE IF NOT EXISTS ChangeLog (
     id INTEGER PRIMARY KEY,
@@ -83,7 +80,6 @@ const createTables = (db: sqlite3.Database) => {
   )
 `);
 
-  // Create the Change table
   db.run(`
     CREATE TABLE IF NOT EXISTS Change (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -99,6 +95,7 @@ const createTables = (db: sqlite3.Database) => {
 
   console.log('Tables created successfully.');
 };
+
 const initDatabase = () => {
   const databasePath = path.join(__dirname, 'FlowMetricsData.db');
   const db = new sqlite3.Database(databasePath, (err) => {
@@ -110,7 +107,6 @@ const initDatabase = () => {
     }
   });
 
-  // Check if tables already exist
   const tablesExistQuery = `
     SELECT name FROM sqlite_master WHERE type='table' AND (
       name = 'SLASubscriber' OR
@@ -127,24 +123,40 @@ const initDatabase = () => {
     if (err) {
       console.error('Error checking if tables exist:', err.message);
     } else if (row) {
-      // Tables already exist, log a message and proceed to data update
-      console.log('Tables already exist. Skipping table creation.');
-      for (let projectId = 1; projectId <= 7; projectId++) {
-        updateDatabaseWithproject(db, projectId, getMockData);
-      }
-      for (let projectId = 1; projectId <= 20; projectId++) {
-        updateDatabaseWithproject(db, projectId, getProject);
-      }
+      db.serialize(() => {
+        db.run('BEGIN TRANSACTION;');
+        try {
+          console.log('Tables already exist. Skipping table creation.');
+          for (let projectId = 1; projectId <= 7; projectId++) {
+            updateDatabaseWithproject(db, projectId, getMockData);
+          }
+          for (let projectId = 1; projectId <= 20; projectId++) {
+            updateDatabaseWithproject(db, projectId, getProject);
+          }
+          db.run('COMMIT;');
+        } catch (error: any) {
+          db.run('ROLLBACK;');
+          console.error('Error in transaction:', error.message);
+        }
+      });
     } else {
-      createTables(db); // stop and restart the server to add data
+      db.serialize(() => {
+        db.run('BEGIN TRANSACTION;');
+        try {
+          createTables(db); // stop and restart the server to add data
+          db.run('COMMIT;');
+        } catch (error: any) {
+          db.run('ROLLBACK;');
+          console.error('Error in transaction:', error.message);
+        }
+      });
     }
-  });
-
-  db.close((err) => {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log('Database connection closed.');
+    db.close((closeErr) => {
+      if (closeErr) {
+        console.error(closeErr.message);
+      }
+      console.log('Database connection closed.');
+    });
   });
 };
 

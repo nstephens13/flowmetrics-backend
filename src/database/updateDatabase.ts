@@ -6,6 +6,7 @@ const updateDatabaseWithproject = (
   mockProject: (projectId: number) => any
 ) => {
   const project = mockProject(projectId);
+
   db.run(
     'INSERT INTO Project (id, name, description, slaSubscriberId) VALUES (?, ?, ?, ?)',
     [project.id, project.name, project.description, project.slaSubscriber?.id],
@@ -162,8 +163,6 @@ const updateDatabaseWithproject = (
       console.warn('issue.assignedSlaRule is either null or not an array');
     }
   }
-
-  console.log('Data added to all tables.');
 };
 
 export default updateDatabaseWithproject;
