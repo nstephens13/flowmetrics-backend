@@ -1,10 +1,10 @@
 import sqlite3 from 'sqlite3';
 import path from 'path';
 import updateDatabaseWithproject from './updateDatabase';
-import { getProject } from '../__mockdata__/mockdata';
+import { getProject } from "../__mockdata__/mockdata";
 import getMockData from '../__mockdata__/mockDataComposer';
 
-const createTables = (db: sqlite3.Database, callback: () => void) => {
+export const createTables = (db: sqlite3.Database, callback: () => void) => {
   db.run(`
     CREATE TABLE IF NOT EXISTS SLASubscriber (
       id INTEGER PRIMARY KEY,
@@ -92,7 +92,6 @@ const createTables = (db: sqlite3.Database, callback: () => void) => {
       FOREIGN KEY (changeLogId) REFERENCES ChangeLog(id)
     )
   `);
-
   console.log('Tables created successfully.');
   callback();
 };

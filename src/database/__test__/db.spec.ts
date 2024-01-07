@@ -1,11 +1,26 @@
 import { test, expect } from '@jest/globals';
 import sqlite3 from 'sqlite3';
-import path from 'path';
-import initDatabase from '../initdb';
+import { createTables } from "../initdb";
 
 test('Tables are created successfully', (done) => {
-  const databasePath = path.join(__dirname, '..', 'FlowMetricsData.db');
-  const db = new sqlite3.Database(databasePath);
+  let db = new sqlite3.Database(':memory:', (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Connected to the in-memory SQlite database.');
+  });
+
+  // Create tables in transaction
+  db.run('BEGIN TRANSACTION;');
+  try {
+  createTables(db, () => {
+    console.log('Tables created successfully.');
+  });
+  }
+  catch (error: any) {
+    db.run('ROLLBACK;');
+    console.error('Error in transaction:', error.message);
+  }
 
   db.serialize(() => {
     db.all("SELECT name FROM sqlite_master WHERE type='table';", (err, tables) => {
@@ -29,6 +44,4 @@ test('Tables are created successfully', (done) => {
       throw new Error(`Error closing database connection: ${closeErr.message}`);
     }
   });
-
-  initDatabase();
 });
