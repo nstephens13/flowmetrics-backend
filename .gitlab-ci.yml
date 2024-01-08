@@ -2,6 +2,7 @@ stages:
   - Lint
   - Test
   - Build
+  - Deploy
 
 .backendJob:
   image: node:20.2.0-alpine3.18
@@ -65,3 +66,23 @@ stages:
 #  only:
 #    - main
 #    - development
+
+"Frontend-Deployment":
+  image: kroniak/ssh-client:latest
+  stage: Deploy
+  tags:
+    - docker
+  script:
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - echo "$SSH_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh -i ~/.ssh/id_rsa $VM_USERNAME@$VM_IP -p $SSH_DEPLOYMENT_PORT "
+      podman login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+      podman pull $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG &&
+      podman stop flowmetrics-backend &&
+      podman run -v /home/projekt1/ssl:/etc/nginx/ssl/ --name flowmetrics-backend -d -p 3000:3000 --rm $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG && exit"
+  # only:
+    # - main
+    # - development
