@@ -1,9 +1,9 @@
 import { test, expect } from '@jest/globals';
 import sqlite3 from 'sqlite3';
-import { createTables } from "../initdb";
+import { createTables } from '../initdb';
 
 test('Tables are created successfully', (done) => {
-  let db = new sqlite3.Database(':memory:', (err) => {
+  const db = new sqlite3.Database(':memory:', (err) => {
     if (err) {
       return console.error(err.message);
     }
@@ -13,11 +13,10 @@ test('Tables are created successfully', (done) => {
   // Create tables in transaction
   db.run('BEGIN TRANSACTION;');
   try {
-  createTables(db, () => {
-    console.log('Tables created successfully.');
-  });
-  }
-  catch (error: any) {
+    createTables(db, () => {
+      console.log('Tables created successfully.');
+    });
+  } catch (error: any) {
     db.run('ROLLBACK;');
     console.error('Error in transaction:', error.message);
   }
