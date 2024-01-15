@@ -1,5 +1,5 @@
-import { ProjectIF } from "../ProjectIF";
-import { describe, it, expect } from "@jest/globals";
+import { describe, it, expect } from '@jest/globals';
+import { ProjectIF } from '../ProjectIF';
 
 describe('ProjectIF', () => {
   it('should have correct properties', () => {
@@ -10,7 +10,7 @@ describe('ProjectIF', () => {
       issues: [],
       slaSubscriber: null,
     };
-    
+
     expect(project).toHaveProperty('id');
     expect(typeof project.id).toBe('number');
 
@@ -25,5 +25,5 @@ describe('ProjectIF', () => {
 
     expect(project).toHaveProperty('slaSubscriber');
     expect(typeof project.slaSubscriber).toBe('object');
-    });
+  });
 });
