@@ -6,7 +6,7 @@ import {
   searchNewestIssues,
 } from './services/jiraRequestHelper';
 import { EmployeeIF } from './model/EmployeeIF';
-import { IssueIF } from './model/IssueIF';
+import { IssueIF } from './model/Issue/IssueIF';
 import { ProjectIF } from './model/ProjectIF';
 
 const apiRouter: Router = express.Router();
@@ -29,8 +29,9 @@ apiRouter.get('/myself', async (req, res) => {
   try {
     const data: EmployeeIF | null = await fetchUserInfo();
     res.json(data);
-  } catch (error: any) {
-    res.status(404).json({ message: error.message });
+  } catch (error: unknown) {
+    const err = error as Error;
+    res.status(404).json({ message: err.message });
   }
 });
 
@@ -62,8 +63,9 @@ apiRouter.get('/issue/:id', async (req, res) => {
     try {
       const data: IssueIF = await fetchIssue(id);
       res.json(data);
-    } catch (error: any) {
-      res.status(404).json({ message: error.message });
+    } catch (error: unknown) {
+      const err = error as Error;
+      res.status(404).json({ message: err.message });
     }
   }
 });
@@ -88,10 +90,11 @@ apiRouter.get('/issue/:id', async (req, res) => {
  */
 apiRouter.get('/project/:id', async (req, res) => {
   try {
-    const data: ProjectIF = await fetchProject(req.params.id);
+    const data: ProjectIF = await fetchProject();
     res.json(data);
-  } catch (error: any) {
-    res.status(404).json({ message: error.message });
+  } catch (error: unknown) {
+    const err = error as Error;
+    res.status(404).json({ message: err.message });
   }
 });
 
@@ -117,8 +120,9 @@ apiRouter.get('/project/:id/issues', async (req, res) => {
   try {
     const data: IssueIF[] = await searchNewestIssues(req.params.id, 200);
     res.json(data);
-  } catch (error: any) {
-    res.status(404).json({ message: error.message });
+  } catch (error: unknown) {
+    const err = error as Error;
+    res.status(404).json({ message: err.message });
   }
 });
 

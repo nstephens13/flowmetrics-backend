@@ -2,21 +2,21 @@ import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import * as process from 'process';
 import dotenv from 'dotenv';
-import type { IssueIF } from '../model/IssueIF';
-import type { EmployeeIF } from '../model/EmployeeIF';
+import type { IssueIF } from '@/model/Issue/IssueIF';
+import type { EmployeeIF } from '@/model/EmployeeIF';
 import { parseEmployee, parseIssue } from './jiraResponseParser';
-import getMockData from '../__mockdata__/mockDataComposer';
-import { ProjectIF } from '../model/ProjectIF';
+import { ProjectIF } from '@/model/ProjectIF';
+import { getProject } from '../__mockdata__/mockdata';
 
 dotenv.config();
 
-const mockDataProject: ProjectIF = getMockData(4);
+const mockDataProject: ProjectIF = getProject(2);
 
 // getting the url from the environment-variable
 const url = `https://${process.env.JIRA_URL}/rest/api/2/`;
 
 // getting the bearer token from env variable and configuring the header for the requests
-const axiosRequestConf: AxiosRequestConfig<any> = {
+const axiosRequestConf: AxiosRequestConfig<never> = {
   headers: {
     Authorization: `Bearer ${process.env.USER_BEARERTOKEN}`,
   },
@@ -28,15 +28,16 @@ const axiosRequestConf: AxiosRequestConfig<any> = {
  * @param endpoint the changeable part of the request url, the postfix after /api/2/
  * @returns {Promise<any>} will return the response as a AxiosResponse or a rejected promise
  */
-async function fetchGetRequestToEndpoint(endpoint: string) {
+// TODO add type to response
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function fetchGetRequestToEndpoint(endpoint: string): Promise<any> {
   try {
     const response = await axios.get(`${url}${endpoint}`, axiosRequestConf);
-    return response.data;
+    return response.data as never;
   } catch (error) {
     return Promise.reject(error);
   }
 }
-
 
 /**
  * @description function to fetch the user-Infos of the actual user that is connected with its bearer token
@@ -51,8 +52,7 @@ export async function fetchUserInfo(): Promise<EmployeeIF> {
     const user = parseEmployee(response);
     return user == null ? Promise.reject() : user;
   } catch (err) {
-
-    //ToDo Remove mocData fallback
+    // ToDo Remove mocData fallback
     const user = mockDataProject.issues[1].createdBy;
     return user == null ? Promise.reject() : user;
 
@@ -66,8 +66,7 @@ export async function fetchUserInfo(): Promise<EmployeeIF> {
  * @param id the id of the issue that should be fetched
  * @returns {Promise<IssueIF>} will return the issue as a IssueIF or a rejected promise
  */
-export async function fetchIssue(id: number) :Promise<IssueIF> {
-
+export async function fetchIssue(id: number): Promise<IssueIF> {
   const endpoint = `issue/${id}?expand=changelog`;
 
   try {
@@ -75,9 +74,8 @@ export async function fetchIssue(id: number) :Promise<IssueIF> {
     const issue = parseIssue(response);
     return issue == null ? Promise.reject() : issue;
   } catch (err) {
-
-    //ToDo Remove mockData fallback
-    return mockDataProject.issues[1]
+    // ToDo Remove mockData fallback
+    return mockDataProject.issues[1];
 
     // return Promise.reject(err);
   }
@@ -94,25 +92,21 @@ export async function searchNewestIssues(projectKey: string, amount: number): Pr
   const endpoint = `search?jql=project=${projectKey}&maxResults=${amount}&expand=changelog&orderBy=-created`;
 
   try {
+    // TODO add type to response
     const response = await fetchGetRequestToEndpoint(endpoint);
-    const issues: IssueIF[] = response?.issues.map((issueJSON: any) => parseIssue(issueJSON));
-    return issues;
+    return response?.issues.map((issueJSON: never) => parseIssue(issueJSON));
   } catch (err) {
-    
-    //ToDo Remove mockData fallback
-    return mockDataProject.issues
-
+    return mockDataProject.issues;
     // return Promise.reject(err);
   }
 }
 
-//ToDo remove in further development
+// ToDo remove in further development
 /**
  * @description function to get the whole mockDataProject without asking jira first for dev purposes
  *
- * @param id id of the project that should be fetched
  * @returns {Promise<ProjectIF>} will return the project as a ProjectIF or a rejected promise
  */
-export async function fetchProject(id: string) :Promise<ProjectIF> {
-  return mockDataProject
+export async function fetchProject(): Promise<ProjectIF> {
+  return mockDataProject;
 }

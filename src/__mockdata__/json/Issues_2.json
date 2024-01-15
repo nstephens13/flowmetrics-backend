@@ -10,13 +10,15 @@
       "lastName": "Doe",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jdoe",
       "assignedIssues": []
     },
     "createdAt": "2023-06-01T00:00:00.000Z",
     "closedAt": null,
     "dueTo": "2023-06-30T00:00:00.000Z",
-    "status": "Open",
-    "userStatus": "Open"
+    "status": "open",
+    "userStatus": "open",
+    "state": "planning"
   },
   {
     "id": 148093,
@@ -28,6 +30,7 @@
       "lastName": "Smith",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jsmith",
       "assignedIssues": []
     },
     "createdBy": {
@@ -36,13 +39,15 @@
       "lastName": "Doe",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jdoe",
       "assignedIssues": []
     },
     "createdAt": "2023-06-02T00:00:00.000Z",
     "closedAt": "2023-06-05T00:00:00.000Z",
     "dueTo": "2023-06-10T00:00:00.000Z",
-    "status": "Closed",
-    "userStatus": "Closed"
+    "status": "closed",
+    "userStatus": "closed",
+    "state": "testing"
   },
   {
     "id": 23253,
@@ -54,6 +59,7 @@
       "lastName": "Smith",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jsmith",
       "assignedIssues": []
     },
     "createdBy": {
@@ -62,13 +68,15 @@
       "lastName": "Smith",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jsmith",
       "assignedIssues": []
     },
     "createdAt": "2023-06-03T00:00:00.000Z",
     "closedAt": null,
     "dueTo": "2023-07-20T00:00:00.000Z",
-    "status": "In Progress",
-    "userStatus": "In Progress"
+    "status": "in progress",
+    "userStatus": "in progress",
+    "state": "development"
   },
   {
     "id": 49764,
@@ -81,13 +89,15 @@
       "lastName": "Doe",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jdoe",
       "assignedIssues": []
     },
     "createdAt": "2023-06-04T00:00:00.000Z",
     "closedAt": null,
     "dueTo": "2023-06-15T00:00:00.000Z",
-    "status": "Open",
-    "userStatus": "Open"
+    "status": "open",
+    "userStatus": "open",
+    "state": "planning"
   },
   {
     "id": 3423455,
@@ -99,6 +109,7 @@
       "lastName": "Johnson",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "rjohnson",
       "assignedIssues": []
     },
     "createdBy": {
@@ -107,13 +118,15 @@
       "lastName": "Smith",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jsmith",
       "assignedIssues": []
     },
     "createdAt": "2023-06-05T00:00:00.000Z",
     "closedAt": null,
     "dueTo": "2023-06-25T00:00:00.000Z",
-    "status": "In Progress",
-    "userStatus": "In Progress"
+    "state": "development",
+    "status": "in progress",
+    "userStatus": "in progress"
   },
   {
     "id": 654353,
@@ -126,13 +139,15 @@
       "lastName": "Doe",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jdoe",
       "assignedIssues": []
     },
     "createdAt": "2023-06-10T00:00:00.000Z",
     "closedAt": null,
     "dueTo": "2023-06-20T00:00:00.000Z",
-    "status": "Open",
-    "userStatus": "Open"
+    "status": "open",
+    "userStatus": "open",
+    "state": "planning"
   },
   {
     "id": 32542527,
@@ -142,6 +157,7 @@
       "id": 4,
       "firstName": "Emily",
       "lastName": "Jones",
+      "key": "ejones",
       "emailAddress": "email@email.com",
       "status": "active",
       "assignedIssues": []
@@ -152,13 +168,15 @@
       "lastName": "Smith",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jsmith",
       "assignedIssues": []
     },
     "createdAt": "2023-06-15T00:00:00.000Z",
     "closedAt": null,
     "dueTo": "2023-06-30T00:00:00.000Z",
     "status": "",
-    "userStatus": ""
+    "userStatus": "",
+    "state": ""
   },
   {
     "id": 345358,
@@ -170,6 +188,7 @@
       "lastName": "Johnson",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "rjohnson",
       "assignedIssues": []
     },
     "createdBy": {
@@ -178,13 +197,15 @@
       "lastName": "Johnson",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "rjohnson",
       "assignedIssues": []
     },
     "createdAt": "2023-06-20T00:00:00.000Z",
     "closedAt": null,
     "dueTo": "2023-07-10T00:00:00.000Z",
-    "status": "In Progress",
-    "userStatus": "In Progress"
+    "status": "in progress",
+    "userStatus": "in progress",
+    "state": "development"
   },
   {
     "id": 9645754,
@@ -196,6 +217,7 @@
       "lastName": "Doe",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jdoe",
       "assignedIssues": []
     },
     "createdBy": {
@@ -204,13 +226,15 @@
       "lastName": "Jones",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "ejones",
       "assignedIssues": []
     },
     "createdAt": "2023-06-25T00:00:00.000Z",
     "closedAt": null,
     "dueTo": "2023-07-15T00:00:00.000Z",
-    "status": "In Progress",
-    "userStatus": "In Progress"
+    "status": "in progress",
+    "userStatus": "in progress",
+    "state": "development"
   },
   {
     "id": 132440,
@@ -222,6 +246,7 @@
       "lastName": "Smith",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jsmith",
       "assignedIssues": []
     },
     "createdBy": {
@@ -230,12 +255,14 @@
       "lastName": "Doe",
       "emailAddress": "email@email.com",
       "status": "active",
+      "key": "jdoe",
       "assignedIssues": []
     },
     "createdAt": "2023-06-30T00:00:00.000Z",
     "closedAt": null,
     "dueTo": "2023-07-20T00:00:00.000Z",
-    "status": "In Progress",
-    "userStatus": "In Progress"
+    "status": "in progress",
+    "userStatus": "in progress",
+    "state": "development"
   }
 ]

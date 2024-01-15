@@ -1,4 +1,4 @@
-import { EmployeeIF } from './EmployeeIF';
+import type { EmployeeIF } from '@/model/EmployeeIF';
 
 export enum ChangeType {
   statusChange = 'status',
@@ -12,6 +12,6 @@ export enum ChangeType {
  */
 export interface ChangeIF {
   changeType: ChangeType | null;
-  from: ChangeType extends ChangeType.assigneeChange ? EmployeeIF : string | null;
-  to: ChangeType extends ChangeType.assigneeChange ? EmployeeIF : string | null;
+  from: EmployeeIF | string | null;
+  to: EmployeeIF | string | null;
 }
