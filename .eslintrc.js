@@ -4,9 +4,10 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
-  ignorePatterns: ['**/database/**/*.ts'],
+  ignorePatterns: ['src/database/**/*.ts'],
   env: {
     node: true,
+    jest: true,
   },
   extends: ['eslint:recommended', 'airbnb-base', 'plugin:import/typescript', 'prettier'],
   settings: {
@@ -25,31 +26,25 @@ module.exports = {
         '': 'never',
       },
     ],
-    '@typescript-eslint/indent': 0, // deactivates intend
-    '@typescript-eslint/no-unused-vars': 'error', // gives error if declared variable is not used
-    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }], // prohibits use of the ++ operator
+    '@typescript-eslint/indent': 0,
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: false,
+        varsIgnorePattern: '^_', // Ignore variables starting with underscore
+        argsIgnorePattern: '^_', // Ignore arguments starting with underscore
+      },
+    ],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'warn',
-    'import/no-extraneous-dependencies': 'off',
-    'import/no-unresolved': 0, // checks import paths
-    '@typescript-eslint/no-explicit-any': 0, // warns against the use of 'any' types
-    'linebreak-style': ['error', 'unix'], // sets the desired end-of-line style
-    'new-cap': 0, // concerns the use of the constructor with 'new'
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-unresolved': 0,
+    '@typescript-eslint/no-explicit-any': 0,
+    'linebreak-style': ['error', 'unix'],
+    'new-cap': 0,
   },
   plugins: ['@typescript-eslint', 'prettier'],
-  overrides: [
-    {
-      files: ['**/*.ts'],
-      rules: {
-        '@typescript-eslint/no-explicit-any': 'warn', // warning for explicit use of 'any'
-        '@typescript-eslint/ban-types': 'warn', // warning for certain TypeScript types
-      },
-    },
-    {
-      files: ['**/*.spec.js', '**/*.spec.jsx', '**/*.spec.ts', '**/*.spec.tsx'],
-      env: {
-        jest: true,
-      },
-    },
-  ],
 };
