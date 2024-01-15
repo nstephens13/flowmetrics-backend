@@ -1,5 +1,5 @@
 import { DateTime, DurationLikeObject } from 'luxon';
-import { ChangeLogIF } from '../model/ChangeLogIF';
+import { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
 
 /**
  * @description function to calculate the time difference between the current time and the time the changeLog was created

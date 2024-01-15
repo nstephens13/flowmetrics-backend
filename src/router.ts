@@ -6,7 +6,7 @@ import {
   searchNewestIssues,
 } from './services/jiraRequestHelper';
 import { EmployeeIF } from './model/EmployeeIF';
-import { IssueIF } from './model/IssueIF';
+import { IssueIF } from './model/Issue/IssueIF';
 import { ProjectIF } from './model/ProjectIF';
 
 const apiRouter: Router = express.Router();

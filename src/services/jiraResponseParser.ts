@@ -1,10 +1,10 @@
 import { DurationLikeObject } from 'luxon';
 import { ChangeIF, ChangeType } from '../model/ChangeIF';
-import { ChangeLogIF } from '../model/ChangeLogIF';
-import type { EmployeeIF } from '../model/EmployeeIF';
-import type { IssueIF, IssueJiraDTO } from '../model/IssueIF';
+import type { EmployeeIF } from '@/model/EmployeeIF';
 import getTimeDifference from './timeCalculator';
-import { EmployeeJiraDTO } from '../model/EmployeeIF';
+import { EmployeeJiraDTO } from '@/model/EmployeeIF';
+import { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
+import type { IssueIF, IssueJiraDTO } from '@/model/Issue/IssueIF';
 
 /**
  * @description function to parse the changes of specific changeType to a ChangeLogIF[]
@@ -19,16 +19,16 @@ function parseChangeType(changeLog: ChangeLogIF[] | null, changeType: ChangeType
   }
   return (
     changeLog?.map((history: ChangeLogIF) => {
-      const changes =
-        history.changes?.filter((change: ChangeIF) => change.changeType === changeType) || [];
-      if (changes.length === 0) {
+      const changes = history.changes ?? [];
+      const filteredChanges = changes.filter((change) => change.changeType === changeType) || [];
+      if (filteredChanges.length === 0) {
         return null;
       }
       const change: ChangeLogIF = {
         id: history.id,
         created: history.created,
         author: history.author,
-        changes,
+        changes: filteredChanges,
       };
       return change;
     }) || []
@@ -77,6 +77,7 @@ export function parseEmployee(employeeJSON: EmployeeJiraDTO): EmployeeIF | null 
     emailAddress: 'none',
     avatarUrl: 'none',
     status: 'inactive',
+    key: employeeJSON.key.toString(),
   };
 }
 
@@ -217,6 +218,7 @@ export function parseIssue(response: IssueJiraDTO): IssueIF | null {
     statusRestingTime,
     statusChanges,
     assigneeChanges,
-    assignedSLARule: null,
+    assignedSlaRule: null,
+    state: null,
   };
 }

@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
-import employeeJson from './Employees.json';
-import issueJson2 from './Issues_2.json';
-import issueJson from './Issues.json';
-import { IssueIF } from '../model/IssueIF';
-import { EmployeeIF } from '../model/EmployeeIF';
-import { ProjectIF } from '../model/ProjectIF';
+import employeeJson from './json/Employees.json';
+import issueJson2 from './json/Issues_2.json';
+import issueJson from './json/Issues.json';
+import { IssueIF } from '@/model/Issue/IssueIF';
+import { EmployeeIF } from '@/model/EmployeeIF';
+import { ProjectIF } from '@/model/ProjectIF';
 
 // Define lists of different category with statuses
 /**
@@ -38,7 +38,8 @@ function loadIssueDataFromFile(issues: IssueIF[]): IssueIF[] {
       statusRestingTime: null,
       statusChanges: null,
       assigneeChanges: null,
-      assignedSLARule: issue.assignedSLARule ? issue.assignedSLARule : null,
+      assignedSlaRule: issue.assignedSlaRule ? issue.assignedSlaRule : null,
+      state: issue.state,
     });
   });
   return issueData;
@@ -178,7 +179,8 @@ function getMockData(dataset: number): ProjectIF {
           dueTo: faker.date.future(),
           statusChanges: null,
           assigneeChanges: null,
-          assignedSLARule: null,
+          assignedSlaRule: null,
+          state: null,
         });
       }
 
