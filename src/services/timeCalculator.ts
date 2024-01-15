@@ -1,5 +1,5 @@
-import { DateTime, DurationLikeObject } from "luxon";
-import { ChangeLogIF } from "../model/ChangeLogIF";
+import { DateTime, DurationLikeObject } from 'luxon';
+import { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
 
 /**
  * @description function to calculate the time difference between the current time and the time the changeLog was created
@@ -11,14 +11,9 @@ export function getTimeDifference(changeLog: ChangeLogIF): DurationLikeObject | 
   if (changeLog.created == null) {
     return null;
   }
-  var startDateTime = DateTime.fromISO(changeLog.created.toISOString());
-  var endDateTime = DateTime.now();
-  return endDateTime.diff(startDateTime, [
-    'weeks',
-    'days',
-    'hours',
-    'minutes',
-    'seconds',
-    'milliseconds'
-  ]).toObject();
+  const startDateTime = DateTime.fromISO(changeLog.created.toISOString());
+  const endDateTime = DateTime.now();
+  return endDateTime
+    .diff(startDateTime, ['weeks', 'days', 'hours', 'minutes', 'seconds', 'milliseconds'])
+    .toObject();
 }

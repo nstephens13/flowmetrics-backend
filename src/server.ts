@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import apiRouter from './router';
+import initDatabase from './database/initdb';
 
 dotenv.config();
 
@@ -13,6 +14,9 @@ const port = process.env.PORT || 3000;
 
 // setting up Cors, allow all origins as first solution
 server.use(cors());
+
+// Call the initializeDatabase method when the server starts
+initDatabase();
 
 // ToDo: set up security and logging here
 
