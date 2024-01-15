@@ -1,6 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
 import { IssueIF } from '../IssueIF';
-import { EmployeeIF } from '../EmployeeIF';
 
 describe('IssueIF', () => {
   it('should have correct properties', () => {
