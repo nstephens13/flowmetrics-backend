@@ -1,9 +1,9 @@
 /**
  * checks if the ingoing object has the right type structure
- * @param object: object to validate
  * @return: true if object type matches
+ * @param object
  */
-function isRightType(object: any): boolean {
+function isRightType(object: object): boolean {
   return (
     'expand' in object &&
     'id' in object &&

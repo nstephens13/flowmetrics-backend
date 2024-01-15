@@ -36,7 +36,7 @@ class Issue implements IssueIF {
 
   state: string | null;
 
-  static planningStatusList: any;
+  static planningStatusList: string[];
 
   constructor(
     id: number,

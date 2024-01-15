@@ -17,3 +17,8 @@ export interface EmployeeIF {
   status: 'active' | 'inactive';
   key: string;
 }
+
+export interface EmployeeJiraDTO {
+  key: number;
+  displayName: string;
+}

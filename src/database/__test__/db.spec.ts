@@ -5,9 +5,8 @@ import { createTables } from '../initdb';
 test('Tables are created successfully', (done) => {
   const db = new sqlite3.Database(':memory:', (err) => {
     if (err) {
-      return console.error(err.message);
+      throw new Error(`Error opening database connection: ${err.message}`);
     }
-    console.log('Connected to the in-memory SQlite database.');
   });
 
   // Create tables in transaction

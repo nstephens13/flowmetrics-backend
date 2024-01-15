@@ -5,9 +5,8 @@ import dotenv from 'dotenv';
 import type { IssueIF } from '@/model/Issue/IssueIF';
 import type { EmployeeIF } from '@/model/EmployeeIF';
 import { parseEmployee, parseIssue } from './jiraResponseParser';
-import getMockData from '../__mockdata__/mockDataComposer';
 import { ProjectIF } from '@/model/ProjectIF';
-import { getProject } from "../__mockdata__/mockdata";
+import { getProject } from '../__mockdata__/mockdata';
 
 dotenv.config();
 
@@ -17,7 +16,7 @@ const mockDataProject: ProjectIF = getProject(2);
 const url = `https://${process.env.JIRA_URL}/rest/api/2/`;
 
 // getting the bearer token from env variable and configuring the header for the requests
-const axiosRequestConf: AxiosRequestConfig<any> = {
+const axiosRequestConf: AxiosRequestConfig<never> = {
   headers: {
     Authorization: `Bearer ${process.env.USER_BEARERTOKEN}`,
   },
@@ -29,10 +28,12 @@ const axiosRequestConf: AxiosRequestConfig<any> = {
  * @param endpoint the changeable part of the request url, the postfix after /api/2/
  * @returns {Promise<any>} will return the response as a AxiosResponse or a rejected promise
  */
-async function fetchGetRequestToEndpoint(endpoint: string) {
+// TODO add type to response
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function fetchGetRequestToEndpoint(endpoint: string): Promise<any> {
   try {
     const response = await axios.get(`${url}${endpoint}`, axiosRequestConf);
-    return response.data;
+    return response.data as never;
   } catch (error) {
     return Promise.reject(error);
   }
@@ -91,13 +92,11 @@ export async function searchNewestIssues(projectKey: string, amount: number): Pr
   const endpoint = `search?jql=project=${projectKey}&maxResults=${amount}&expand=changelog&orderBy=-created`;
 
   try {
+    // TODO add type to response
     const response = await fetchGetRequestToEndpoint(endpoint);
-    const issues: IssueIF[] = response?.issues.map((issueJSON: any) => parseIssue(issueJSON));
-    return issues;
+    return response?.issues.map((issueJSON: never) => parseIssue(issueJSON));
   } catch (err) {
-    // ToDo Remove mockData fallback
     return mockDataProject.issues;
-
     // return Promise.reject(err);
   }
 }
@@ -106,9 +105,8 @@ export async function searchNewestIssues(projectKey: string, amount: number): Pr
 /**
  * @description function to get the whole mockDataProject without asking jira first for dev purposes
  *
- * @param id id of the project that should be fetched
  * @returns {Promise<ProjectIF>} will return the project as a ProjectIF or a rejected promise
  */
-export async function fetchProject(id: string): Promise<ProjectIF> {
+export async function fetchProject(): Promise<ProjectIF> {
   return mockDataProject;
 }

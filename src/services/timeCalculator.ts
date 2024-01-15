@@ -7,7 +7,7 @@ import { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
  * @param changeLog changeLog to calculate the time difference
  * @returns {DurationLikeObject | null} will return the time difference as a DurationLikeObject or null if changeLog is null
  */
-export function getTimeDifference(changeLog: ChangeLogIF): DurationLikeObject | null {
+export default function getTimeDifference(changeLog: ChangeLogIF): DurationLikeObject | null {
   if (changeLog.created == null) {
     return null;
   }

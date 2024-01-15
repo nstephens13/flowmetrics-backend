@@ -4,6 +4,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
+  ignorePatterns: ['**/database/**/*.ts'],
   env: {
     node: true,
   },
@@ -42,6 +43,12 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-explicit-any': 'warn', // warning for explicit use of 'any'
         '@typescript-eslint/ban-types': 'warn', // warning for certain TypeScript types
+      },
+    },
+    {
+      files: ['**/*.spec.js', '**/*.spec.jsx', '**/*.spec.ts', '**/*.spec.tsx'],
+      env: {
+        jest: true,
       },
     },
   ],

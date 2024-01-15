@@ -59,3 +59,17 @@ export function printSlaRuleNames(issue: IssueIF): string {
   }
   return issue.assignedSlaRule.map((rule) => rule.name).join(', ');
 }
+
+// define the shape of the response from jira
+export interface IssueJiraDTO {
+  id: number;
+  fields: {
+    summary: string;
+    description: string;
+    assignee: never;
+    creator: never;
+    created: never;
+    duedate: never;
+  };
+  changelog: never;
+}
