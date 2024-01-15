@@ -10,7 +10,7 @@ import { ProjectIF } from '../model/ProjectIF';
 
 dotenv.config();
 
-const mockdataproject: ProjectIF = getMockData(4);
+const mockDataProject: ProjectIF = getMockData(4);
 
 // getting the url from the environment-variable
 const url = `https://${process.env.JIRA_URL}/rest/api/2/`;
