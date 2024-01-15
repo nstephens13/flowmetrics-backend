@@ -1,0 +1,33 @@
+import { describe, expect, it } from '@jest/globals';
+import type { EmployeeIF } from '../EmployeeIF';
+
+describe('EmployeeIF', () => {
+  it('should have correct properties', () => {
+    const employee: EmployeeIF = {
+      id: 1,
+      firstName: 'John',
+      lastName: 'Doe',
+      emailAddress: 'john.doe@example.com',
+      avatarUrl: 'https://example.com/avatar.jpg',
+      status: 'active',
+    };
+
+    expect(employee).toHaveProperty('id');
+    expect(typeof employee.id).toBe('number');
+
+    expect(employee).toHaveProperty('firstName');
+    expect(typeof employee.firstName).toBe('string');
+
+    expect(employee).toHaveProperty('lastName');
+    expect(typeof employee.lastName).toBe('string');
+
+    expect(employee).toHaveProperty('emailAddress');
+    expect(typeof employee.emailAddress).toBe('string');
+
+    expect(employee).toHaveProperty('avatarUrl');
+    expect(typeof employee.avatarUrl).toBe('string');
+
+    expect(employee).toHaveProperty('status');
+    expect(employee.status).toBe('active');
+  });
+});
