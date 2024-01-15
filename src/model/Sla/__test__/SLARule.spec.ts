@@ -1,15 +1,16 @@
 import { describe, it, expect } from '@jest/globals';
-import { SLARule } from '../SLARule';
+import { SlaRule } from '../SlaRule';
 
 describe('SLARule', () => {
   it('should have correct properties', () => {
-    const slaRule: SLARule = {
+    const slaRule: SlaRule = {
       id: 1,
       name: 'SLA Rule 1',
-      durationInDays: 1,
+      reactionTimeInDays: 1,
       expirationDate: new Date(),
-      maxAssignedEmployees: 5,
       occurredIn: 'open',
+      priority: 'high',
+      issueType: ['bug'],
     };
 
     expect(slaRule).toHaveProperty('id');
@@ -20,19 +21,22 @@ describe('SLARule', () => {
     expect(typeof slaRule.name).toBe('string');
     expect(slaRule.name).toBe('SLA Rule 1');
 
-    expect(slaRule).toHaveProperty('durationInDays');
-    expect(typeof slaRule.durationInDays).toBe('number');
-    expect(slaRule.durationInDays).toBe(1);
+    expect(slaRule).toHaveProperty('reactionTimeInDays');
+    expect(typeof slaRule.reactionTimeInDays).toBe('number');
+    expect(slaRule.reactionTimeInDays).toBe(1);
 
     expect(slaRule).toHaveProperty('expirationDate');
     expect(typeof slaRule.expirationDate).toBe('object');
 
-    expect(slaRule).toHaveProperty('maxAssignedEmployees');
-    expect(typeof slaRule.maxAssignedEmployees).toBe('number');
-    expect(slaRule.maxAssignedEmployees).toBe(5);
-
     expect(slaRule).toHaveProperty('occurredIn');
     expect(typeof slaRule.occurredIn).toBe('string');
     expect(slaRule.occurredIn).toBe('open');
+
+    expect(slaRule).toHaveProperty('priority');
+    expect(typeof slaRule.priority).toBe('string');
+    expect(slaRule.priority).toBe('high');
+
+    expect(slaRule).toHaveProperty('issueType');
+    expect(typeof slaRule.issueType).toBe('object');
   });
 });

@@ -1,6 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
 import { IssueIF } from '../IssueIF';
-import exp from 'constants';
 
 describe('IssueIF', () => {
   it('should have correct properties', () => {
@@ -15,17 +14,19 @@ describe('IssueIF', () => {
         emailAddress: 'john.doe@example.com',
         avatarUrl: 'https://example.com/avatar.jpg',
         status: 'active',
+        key: 'john.doe',
       },
-      assigneeRestingTime: null,
       createdBy: null,
       createdAt: new Date(),
       closedAt: null,
       dueTo: new Date(),
       status: 'open',
+      assigneeRestingTime: null,
       statusRestingTime: null,
       statusChanges: [],
       assigneeChanges: [],
-      assignedSLARule: [],
+      assignedSlaRule: [],
+      state: 'open',
     };
 
     expect(issue).toHaveProperty('id');
@@ -75,7 +76,7 @@ describe('IssueIF', () => {
     expect(issue).toHaveProperty('assigneeChanges');
     expect(typeof issue.assigneeChanges).toBe('object');
 
-    expect(issue).toHaveProperty('assignedSLARule');
-    expect(typeof issue.assignedSLARule).toBe('object');
+    expect(issue).toHaveProperty('assignedSlaRule');
+    expect(typeof issue.assignedSlaRule).toBe('object');
   });
 });

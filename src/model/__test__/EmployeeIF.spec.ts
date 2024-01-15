@@ -10,6 +10,7 @@ describe('EmployeeIF', () => {
       emailAddress: 'john.doe@example.com',
       avatarUrl: 'https://example.com/avatar.jpg',
       status: 'active',
+      key: 'john.doe',
     };
 
     expect(employee).toHaveProperty('id');
@@ -35,5 +36,9 @@ describe('EmployeeIF', () => {
     expect(employee).toHaveProperty('status');
     expect(typeof employee.status).toBe('string');
     expect(employee.status).toBe('active');
+
+    expect(employee).toHaveProperty('key');
+    expect(typeof employee.key).toBe('string');
+    expect(employee.key).toBe('john.doe');
   });
 });

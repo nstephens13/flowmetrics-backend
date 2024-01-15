@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { DateTime } from 'luxon';
-import { ChangeLogIF } from '../../model/ChangeLogIF';
-import { getTimeDifference } from '../timeCalculator';
+import { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
+import getTimeDifference from '../timeCalculator';
 
 describe('getTimeDifference', () => {
   it('returns null if changeLog.created is null', () => {
