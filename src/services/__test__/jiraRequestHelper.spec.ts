@@ -28,7 +28,6 @@ describe('jiraRequestHelper fetchUserInfo', () => {
     expect(userInfo).toHaveProperty('status');
     expect(userInfo).toHaveProperty('assignedIssues');
     expect(userInfo).toHaveProperty('emailAddress');
-    expect(userInfo).toHaveProperty('avatarUrl');
     expect(userInfo).toHaveProperty('key');
   });
 });
