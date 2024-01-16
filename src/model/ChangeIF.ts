@@ -1,4 +1,4 @@
-import { EmployeeIF } from './EmployeeIF';
+import { EmployeeIF } from '@/model/EmployeeIF';
 
 export enum ChangeType {
   statusChange = 'status',

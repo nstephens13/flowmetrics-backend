@@ -1,5 +1,5 @@
 import { DurationLikeObject } from 'luxon';
-import { ChangeIF, ChangeType } from '../model/ChangeIF';
+import { ChangeType, ChangeIF } from '../model/ChangeIF';
 import type { EmployeeIF } from '@/model/EmployeeIF';
 import getTimeDifference from './timeCalculator';
 import { EmployeeJiraDTO } from '@/model/EmployeeIF';
