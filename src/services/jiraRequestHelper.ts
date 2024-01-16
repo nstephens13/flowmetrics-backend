@@ -6,7 +6,7 @@ import type { IssueIF } from '@/model/Issue/IssueIF';
 import type { EmployeeIF } from '@/model/EmployeeIF';
 import { parseEmployee, parseIssue } from './jiraResponseParser';
 import { ProjectIF } from '@/model/ProjectIF';
-import getProject from '@/__mockdata__/mockdata';
+import getProject from '../__mockdata__/mockdata';
 
 dotenv.config();
 
