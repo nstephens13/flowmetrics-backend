@@ -23,7 +23,7 @@ describe('jiraResponseParser', () => {
     expect(parsedEmployee).toEqual(expectedEmployee);
   });
 
-  it('parseDate correctly parsed date', () => {
+  it('parseDate correctly parses date', () => {
     const mockDate = '2023-05-17T10:00:00Z';
     const expectedDate = new Date(mockDate);
 
