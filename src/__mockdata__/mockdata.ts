@@ -1,7 +1,7 @@
 import type { ProjectIF } from '@/model/ProjectIF';
 import generateProject from './generator/ProjectGenerator';
 
-export function getProject(projectNumber: number): ProjectIF {
+export default function getProject(projectNumber: number): ProjectIF {
   switch (projectNumber) {
     case 1:
       return generateProject(projectNumber, 50) as ProjectIF;
@@ -46,12 +46,4 @@ export function getProject(projectNumber: number): ProjectIF {
     default:
       return generateProject(1, 50) as ProjectIF;
   }
-}
-
-export function getProjects(from: number, to: number): ProjectIF[] {
-  const projects: ProjectIF[] = [];
-  for (let i = from; i <= to; i++) {
-    projects.push(getProject(i));
-  }
-  return projects;
 }
