@@ -1,6 +1,6 @@
 import { describe, it, expect } from '@jest/globals';
 import axios from 'axios';
-import { fetchUserInfo } from '../jiraRequestHelper';
+import { fetchUserInfo, fetchIssue } from '../jiraRequestHelper';
 
 jest.mock('axios');
 
@@ -29,5 +29,23 @@ describe('jiraRequestHelper fetchUserInfo', () => {
     expect(userInfo).toHaveProperty('assignedIssues');
     expect(userInfo).toHaveProperty('emailAddress');
     expect(userInfo).toHaveProperty('key');
+  });
+});
+
+describe('jiraRequestHelper fetchIssue', () => {
+  it('fetchIssue makes request and returns correct properties', async () => {
+    (axios.get as jest.Mock).mockResolvedValue({
+      data: {
+        id : 1000202,
+        name : 'Test Issue',
+        description : 'Test Issue Description',
+      },
+    });
+
+    const issue = await fetchIssue(1000202);
+
+    expect(issue).toHaveProperty('id', 1000202);
+    expect(issue).toHaveProperty('name');
+    expect(issue).toHaveProperty('description');
   });
 });
