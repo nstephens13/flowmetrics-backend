@@ -34,7 +34,7 @@ describe('jiraResponseParser', () => {
   });
 
   it('parseIssue correctly parses issue', () => {
-    const mockIssueJiraDTO : IssueJiraDTO = {
+    const mockIssueJiraDTO: IssueJiraDTO = {
       id: 1,
       fields: {
         summary: 'Test Issue',
