@@ -1,9 +1,10 @@
 import { describe, it, expect } from '@jest/globals';
-import { parseEmployee, parseDate } from '../jiraResponseParser';
+import { parseEmployee, parseDate, parseIssue, ResponseChangelog } from '../jiraResponseParser';
+import { IssueJiraDTO } from '@/model/Issue/IssueIF';
 
 describe('jiraResponseParser', () => {
   it('parseEmployee correctly parses employee', () => {
-    const mockEmployeeJSON = {
+    const mockEmployeeJiraDTO = {
       key: 5,
       displayName: 'Doe, John',
     };
@@ -18,7 +19,7 @@ describe('jiraResponseParser', () => {
       key: '5',
     };
 
-    const parsedEmployee = parseEmployee(mockEmployeeJSON);
+    const parsedEmployee = parseEmployee(mockEmployeeJiraDTO);
 
     expect(parsedEmployee).toEqual(expectedEmployee);
   });
@@ -30,5 +31,44 @@ describe('jiraResponseParser', () => {
     const parsedDate = parseDate(mockDate);
 
     expect(parsedDate).toEqual(expectedDate);
+  });
+
+  it('parseIssue correctly parses issue', () => {
+    const mockIssueJiraDTO : IssueJiraDTO = {
+      id: 1,
+      fields: {
+        summary: 'Test Issue',
+        description: 'Test Description',
+        assignee: null,
+        creator: null,
+        created: new Date('2023-05-17T10:00:00Z'),
+        duedate: null,
+      },
+      changelog: {
+        histories: [],
+      },
+    };
+
+    const expectedIssue = {
+      id: 1,
+      name: 'Test Issue',
+      description: 'Test Description',
+      assignedTo: null,
+      createdBy: null,
+      createdAt: new Date('2023-05-17T10:00:00Z'),
+      closedAt: null,
+      dueTo: null,
+      status: null,
+      assigneeRestingTime: null,
+      statusRestingTime: null,
+      statusChanges: [],
+      assigneeChanges: [],
+      assignedSlaRule: null,
+      state: null,
+    };
+
+    const parsedIssue = parseIssue(mockIssueJiraDTO);
+
+    expect(parsedIssue).toEqual(expectedIssue);
   });
 });
