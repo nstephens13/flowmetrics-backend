@@ -65,7 +65,7 @@ function extractNames(displayName: string): {
  * @param employeeJSON parsed response from jira
  * @returns employee as a EmployeeIF or null if response is null
  */
-export function parseEmployee(employeeJSON: EmployeeJiraDTO | null): EmployeeIF | null{
+export function parseEmployee(employeeJSON: EmployeeJiraDTO | null): EmployeeIF | null {
   if (employeeJSON === null) {
     return null;
   }
@@ -182,7 +182,7 @@ export function parseChangeLog(response: ResponseChangelog): ChangeLogIF[] {
  */
 export function parseIssue(response: IssueJiraDTO): IssueIF | null {
   // only parseEmployee if response.fields.assignee is not null
-  
+
   const assignedTo = parseEmployee(response.fields.assignee);
   const createdBy: EmployeeIF | null = parseEmployee(response.fields.creator);
   const createdAt: Date | null = response.fields.created;

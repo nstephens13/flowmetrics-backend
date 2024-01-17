@@ -36,9 +36,9 @@ describe('jiraRequestHelper fetchIssue', () => {
   it('fetchIssue makes request and returns correct properties', async () => {
     (axios.get as jest.Mock).mockResolvedValue({
       data: {
-        id : 1000202,
-        name : 'Test Issue',
-        description : 'Test Issue Description',
+        id: 1000202,
+        name: 'Test Issue',
+        description: 'Test Issue Description',
       },
     });
 

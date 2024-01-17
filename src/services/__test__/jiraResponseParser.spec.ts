@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { parseEmployee, parseDate, parseIssue, ResponseChangelog } from '../jiraResponseParser';
+import { parseEmployee, parseDate, parseIssue } from '../jiraResponseParser';
 import { IssueJiraDTO } from '@/model/Issue/IssueIF';
 
 describe('jiraResponseParser', () => {
