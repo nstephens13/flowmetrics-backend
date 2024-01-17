@@ -65,8 +65,8 @@ function extractNames(displayName: string): {
  * @param employeeJSON parsed response from jira
  * @returns employee as a EmployeeIF or null if response is null
  */
-export function parseEmployee(employeeJSON: EmployeeJiraDTO): EmployeeIF | null {
-  if (employeeJSON == null) {
+export function parseEmployee(employeeJSON: EmployeeJiraDTO | null): EmployeeIF | null {
+  if (employeeJSON === null) {
     return null;
   }
   const { firstName, lastName } = extractNames(employeeJSON.displayName);
@@ -143,7 +143,7 @@ interface history {
   author: EmployeeJiraDTO;
 }
 
-interface ResponseChangelog {
+export interface ResponseChangelog {
   histories: history[];
 }
 
@@ -154,9 +154,6 @@ interface ResponseChangelog {
  * @returns changelog as a ChangeLogIF[] or null if response is null
  */
 export function parseChangeLog(response: ResponseChangelog): ChangeLogIF[] {
-  if (response == null) {
-    return [];
-  }
   const changeLog = response?.histories?.map((history: history) => {
     if (history === null) {
       return null;
@@ -184,14 +181,12 @@ export function parseChangeLog(response: ResponseChangelog): ChangeLogIF[] {
  * @returns issue as a IssueIF or null if response is null
  */
 export function parseIssue(response: IssueJiraDTO): IssueIF | null {
-  if (response == null) {
-    return null;
-  }
+  // only parseEmployee if response.fields.assignee is not null
 
-  const assignedTo: EmployeeIF | null = parseEmployee(response.fields.assignee);
+  const assignedTo = parseEmployee(response.fields.assignee);
   const createdBy: EmployeeIF | null = parseEmployee(response.fields.creator);
-  const createdAt: Date | null = parseDate(response.fields.created);
-  const dueTo: Date | null = parseDate(response.fields.duedate);
+  const createdAt: Date | null = response.fields.created;
+  const dueTo: Date | null = response.fields.duedate;
   const changelog: ChangeLogIF[] | null = parseChangeLog(response.changelog);
   const statusChanges: ChangeLogIF[] = parseChangeType(changelog, ChangeType.statusChange);
   const assigneeChanges: ChangeLogIF[] = parseChangeType(changelog, ChangeType.assigneeChange);

@@ -2,6 +2,8 @@ import type { DurationLikeObject } from 'luxon';
 import type { EmployeeIF } from '../EmployeeIF';
 import type { SlaRule } from '@/model/Sla/SlaRule';
 import type { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
+import type { EmployeeJiraDTO } from '@/model/EmployeeIF';
+import type { ResponseChangelog } from '@/services/jiraResponseParser';
 
 /**
  *
@@ -66,10 +68,10 @@ export interface IssueJiraDTO {
   fields: {
     summary: string;
     description: string;
-    assignee: never;
-    creator: never;
-    created: never;
-    duedate: never;
+    assignee: EmployeeJiraDTO | null;
+    creator: EmployeeJiraDTO | null;
+    created: Date | null;
+    duedate: Date | null;
   };
-  changelog: never;
+  changelog: ResponseChangelog;
 }
