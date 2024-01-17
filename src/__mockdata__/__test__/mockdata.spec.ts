@@ -49,7 +49,7 @@ describe('mockdata', () => {
     expect(testProject).toHaveProperty('name', 'Project 4');
     expect(testProject).toHaveProperty('numberOfIssues', 25);
   });
-  
+
   it('generateProject for project 5 is called with correct argument', () => {
     const projectNumber = 5;
     const numberOfIssues = 30;
