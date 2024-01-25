@@ -1,21 +1,7 @@
 import { faker } from '@faker-js/faker';
 import type { EmployeeIF } from '@/model/EmployeeIF';
-import EmployeesJsonData from '../json/Employees.json';
-import IssuesWorkflowsJsonData from '../json/IssuesWorkflows.json';
-
-export const issueTypes = [
-  'bug',
-  'incident',
-  'coverage',
-  'enhancement',
-  'task',
-  'feature',
-  'support',
-  'documentation',
-  'review',
-  'refactor',
-  'zombie',
-];
+import EmployeesJsonData from '@/assets/__mockdata__/json/Employees.json';
+import IssuesWorkflowsJsonData from '@/assets/__mockdata__/json/IssuesWorkflows.json';
 
 export function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
@@ -39,7 +25,11 @@ export function getRandomEmployee(employee?: EmployeeIF): EmployeeIF {
 }
 
 export function getDatesBetween(startDate: Date, endDate: Date, numberOfDates: number): Date[] {
-  return faker.date.betweens({ from: startDate, to: endDate, count: numberOfDates });
+  return faker.date.betweens({
+    from: startDate,
+    to: endDate,
+    count: numberOfDates === 0 ? 1 : numberOfDates,
+  });
 }
 
 export function getWorkflow(issueType: string) {

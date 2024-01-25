@@ -1,7 +1,7 @@
 import type { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
 import type { EmployeeIF } from '@/model/EmployeeIF';
 import type { ChangeIF } from '@/model/Issue/ChangeIF';
-import { ChangeType } from '../../model/Issue/ChangeIF';
+import { ChangeType } from '@/model/Issue/ChangeIF';
 import {
   getRandomEmployee,
   getDatesBetween,
@@ -9,7 +9,17 @@ import {
   getRandomInt,
   getDateAndTimeInPast,
 } from './HelperFunctions';
+import IssueTypes from '@/assets/__mockdata__/IssueProps/issueTypes';
 
+/**
+ * Function to generate an array of status changes for a given issue
+ * @param issueType issue type of the issue
+ * @param issueNumber issue number
+ * @param currentStatus current status of the issue
+ * @param createdDate date the issue was created
+ * @returns an array of change logs
+ * @author Nived Stephen
+ */
 export function generateStatusChanges(
   issueType: string,
   issueNumber: number,
@@ -22,11 +32,35 @@ export function generateStatusChanges(
   const currentStatusIndex = workflow.statuses.findIndex(
     (status: { status: string }) => status.status === currentStatus
   );
-  if (currentStatusIndex === 0) {
-    return null;
-  }
   const changesDates = getDatesBetween(createdDate, new Date(), currentStatusIndex);
-  for (let i = 0; i < currentStatusIndex; i++) {
+  if (currentStatusIndex === 0) {
+    changeLogs.push({
+      id: issueNumber * 100 + 1,
+      created: changesDates[0],
+      author: getRandomEmployee(),
+      changes: [
+        {
+          changeType: ChangeType.statusChange,
+          from: null,
+          to: workflow.statuses[0].status,
+        } as ChangeIF,
+      ],
+    });
+    return changeLogs;
+  }
+  changeLogs.push({
+    id: issueNumber * 100 + 1,
+    created: changesDates[0],
+    author: getRandomEmployee(),
+    changes: [
+      {
+        changeType: ChangeType.statusChange,
+        from: null,
+        to: workflow.statuses[0].status,
+      } as ChangeIF,
+    ],
+  });
+  for (let i = 1; i < currentStatusIndex; i++) {
     const changeLog: ChangeLogIF = {
       id: issueNumber * 100 + i,
       created: changesDates[i],
@@ -44,6 +78,15 @@ export function generateStatusChanges(
   return changeLogs;
 }
 
+/**
+ * Function to generate an array of assignee changes for a given issue
+ * @param issueType issue type of the issue
+ * @param issueNumber issue number
+ * @param currentPriority current priority of the issue
+ * @param createdDate date the issue was created
+ * @returns an array of change logs
+ * @author Nived Stephen
+ */
 export function generateAssigneeChanges(
   issueType: string,
   issueNumber: number,
@@ -53,7 +96,7 @@ export function generateAssigneeChanges(
   const changeLogs: ChangeLogIF[] = [];
   const numberofAssigneeChanges = getRandomInt(10);
   const assigneeChangesDates =
-    issueType === 'zombie'
+    issueType === IssueTypes.zombie
       ? getDatesBetween(createdDate, getDateAndTimeInPast(7), numberofAssigneeChanges)
       : getDatesBetween(createdDate, new Date(), numberofAssigneeChanges);
   let bufferEmployee1: EmployeeIF = getRandomEmployee(currentAssignee);
