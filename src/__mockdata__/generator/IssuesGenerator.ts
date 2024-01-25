@@ -26,7 +26,7 @@ function getIssue(issueNumber: number, issueTypeNumber: number): IssueIF {
   const workflow = getWorkflow(issueType);
   const issueStatus: string =
     issueType === IssueTypes.zombie
-      ? workflow.statuses[getRandomIntBetween(9, 14)].status
+      ? workflow.statuses[getRandomIntBetween(9, 15)].status
       : workflow.statuses[getRandomInt(workflow.statuses.length)].status;
   const createdDate: Date =
     issueType === IssueTypes.zombie

@@ -2,7 +2,6 @@ import sqlite3 from 'sqlite3';
 import path from 'path';
 import updateDatabaseWithproject from './updateDatabase';
 import getProject from '../__mockdata__/mockdata';
-import getMockData from '../__mockdata__/mockDataComposer';
 
 export const createTables = (db: sqlite3.Database, callback: () => void) => {
   db.run(`
@@ -127,9 +126,6 @@ const initDatabase = () => {
         try {
           console.log('Tables already exist. Skipping table creation.');
           const updateCallback = () => {
-            for (let projectId = 1; projectId <= 7; projectId++) {
-              updateDatabaseWithproject(db, projectId, getMockData);
-            }
             for (let projectId = 1; projectId <= 20; projectId++) {
               updateDatabaseWithproject(db, projectId, getProject);
             }
@@ -146,9 +142,6 @@ const initDatabase = () => {
         db.run('BEGIN TRANSACTION;');
         try {
           const createCallback = () => {
-            for (let projectId = 1; projectId <= 7; projectId++) {
-              updateDatabaseWithproject(db, projectId, getMockData);
-            }
             for (let projectId = 1; projectId <= 20; projectId++) {
               updateDatabaseWithproject(db, projectId, getProject);
             }

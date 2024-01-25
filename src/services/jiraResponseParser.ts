@@ -203,6 +203,8 @@ export function parseIssue(response: IssueJiraDTO): IssueIF | null {
     id: response?.id,
     name: response.fields?.summary,
     description: response.fields?.description,
+    priority: response.fields?.priority,
+    issueType: response.fields?.issuetype,
     assignedTo,
     assigneeRestingTime,
     createdBy,
@@ -213,7 +215,6 @@ export function parseIssue(response: IssueJiraDTO): IssueIF | null {
     statusRestingTime,
     statusChanges,
     assigneeChanges,
-    assignedSlaRule: null,
     state: null,
   };
 }

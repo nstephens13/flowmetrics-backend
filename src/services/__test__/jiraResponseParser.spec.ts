@@ -1,6 +1,6 @@
 import { describe, it, expect } from '@jest/globals';
 import { parseEmployee, parseDate, parseIssue } from '../jiraResponseParser';
-import { IssueJiraDTO } from '@/model/Issue/IssueIF';
+import { IssueIF, IssueJiraDTO } from '@/model/Issue/IssueIF';
 
 describe('jiraResponseParser', () => {
   it('parseEmployee correctly parses employee', () => {
@@ -43,16 +43,20 @@ describe('jiraResponseParser', () => {
         creator: null,
         created: new Date('2023-05-17T10:00:00Z'),
         duedate: null,
+        priority: null,
+        issuetype: null,
       },
       changelog: {
         histories: [],
       },
     };
 
-    const expectedIssue = {
+    const expectedIssue: IssueIF = {
       id: 1,
       name: 'Test Issue',
       description: 'Test Description',
+      priority: null,
+      issueType: null,
       assignedTo: null,
       createdBy: null,
       createdAt: new Date('2023-05-17T10:00:00Z'),
@@ -63,7 +67,6 @@ describe('jiraResponseParser', () => {
       statusRestingTime: null,
       statusChanges: [],
       assigneeChanges: [],
-      assignedSlaRule: null,
       state: null,
     };
 

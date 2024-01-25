@@ -1,7 +1,7 @@
 import type { ProjectIF } from '@/model/ProjectIF';
 import generateProject from './generator/ProjectGenerator';
 
-export function getProject(projectNumber: number): ProjectIF {
+export default function getProject(projectNumber: number): ProjectIF {
   switch (projectNumber) {
     case 1:
       return generateProject(projectNumber, 50) as ProjectIF;

@@ -55,6 +55,8 @@ export interface IssueJiraDTO {
     creator: EmployeeJiraDTO | null;
     created: Date | null;
     duedate: Date | null;
+    priority: string | null;
+    issuetype: string | null;
   };
   changelog: ResponseChangelog;
 }
