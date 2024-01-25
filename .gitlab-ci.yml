@@ -63,11 +63,11 @@ stages:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
-#  only:
-#    - main
-#    - development
+  only:
+    - main
+    - development
 
-"Frontend-Deployment":
+"Backend-Deployment":
   image: kroniak/ssh-client:latest
   stage: Deploy
   tags:
@@ -84,6 +84,5 @@ stages:
         podman stop flowmetrics-backend &&
         podman run --name flowmetrics-backend -d -p 3000:3000 --rm $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG && exit"
   only:
-    - 7-pipeline-for-backend
     - main
     - development
