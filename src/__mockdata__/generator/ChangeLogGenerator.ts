@@ -9,7 +9,7 @@ import {
   getRandomInt,
   getDateAndTimeInPast,
 } from './HelperFunctions';
-import IssueTypes from '@/assets/__mockdata__/IssueProps/issueTypes';
+import IssueTypes from '@/__mockdata__/IssueProps/issueTypes';
 
 /**
  * Function to generate an array of status changes for a given issue

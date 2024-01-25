@@ -1,7 +1,7 @@
 import type { ProjectIF } from '@/model/ProjectIF';
 import type { IssueIF } from '@/model/Issue/IssueIF';
-import generateIssues from '@/assets/__mockdata__/generator/IssuesGenerator';
-import projectsJsonData from '@/assets/__mockdata__/json/ProjectsList.json';
+import generateIssues from '@/__mockdata__/generator/IssuesGenerator';
+import projectsJsonData from '@/__mockdata__/json/ProjectsList.json';
 
 /**
  * Function to generate a random project
