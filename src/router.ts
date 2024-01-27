@@ -90,7 +90,7 @@ apiRouter.get('/issue/:id', async (req, res) => {
  */
 apiRouter.get('/project/:id', async (req, res) => {
   try {
-    const data: ProjectIF = await fetchProject();
+    const data: ProjectIF = await fetchProject(Number(req.params.id));
     res.json(data);
   } catch (error: unknown) {
     const err = error as Error;

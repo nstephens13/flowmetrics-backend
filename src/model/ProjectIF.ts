@@ -1,6 +1,4 @@
 import type { IssueIF } from './Issue/IssueIF';
-import type { SlaCustomerProject } from '@/model/Sla/SlaCustomerProject';
-
 /**
  *
  * @prop {number} id project id
@@ -14,5 +12,4 @@ export interface ProjectIF {
   name: string;
   description: string;
   issues: IssueIF[];
-  slaSubscriber: SlaCustomerProject | null;
 }

@@ -3,161 +3,161 @@
     "name": "Bug Workflow",
     "issueType": "bug",
     "statuses": [
-      { "category": "planning", "status": "open" },
-      { "category": "development", "status": "in work" },
-      { "category": "development", "status": "review" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Open" },
+      { "category": "Development", "status": "In work" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Incident Workflow",
     "issueType": "incident",
     "statuses": [
-      { "category": "planning", "status": "design" },
-      { "category": "development", "status": "review" },
-      { "category": "development", "status": "in progress" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Design" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Development", "status": "In progress" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Coverage Workflow",
     "issueType": "coverage",
     "statuses": [
-      { "category": "planning", "status": "open" },
-      { "category": "development", "status": "in progress" },
-      { "category": "development", "status": "in work" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Open" },
+      { "category": "Development", "status": "In progress" },
+      { "category": "Development", "status": "In work" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Enhancement Workflow",
     "issueType": "enhancement",
     "statuses": [
-      { "category": "planning", "status": "planned" },
-      { "category": "development", "status": "in work" },
-      { "category": "development", "status": "review" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Planned" },
+      { "category": "Development", "status": "In work" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Task Workflow",
     "issueType": "task",
     "statuses": [
-      { "category": "planning", "status": "design" },
-      { "category": "development", "status": "in work" },
-      { "category": "development", "status": "review" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Design" },
+      { "category": "Development", "status": "In work" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Feature Workflow",
     "issueType": "feature",
     "statuses": [
-      { "category": "planning", "status": "open" },
-      { "category": "development", "status": "review" },
-      { "category": "development", "status": "in progress" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Open" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Development", "status": "In progress" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Support Workflow",
     "issueType": "support",
     "statuses": [
-      { "category": "planning", "status": "planned" },
-      { "category": "development", "status": "review" },
-      { "category": "development", "status": "in progress" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Planned" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Development", "status": "In progress" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Documentation Workflow",
     "issueType": "documentation",
     "statuses": [
-      { "category": "planning", "status": "design" },
-      { "category": "development", "status": "in progress" },
-      { "category": "development", "status": "in work" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Design" },
+      { "category": "Development", "status": "In progress" },
+      { "category": "Development", "status": "In work" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
-    "name": "review Workflow",
-    "issueType": "review",
+    "name": "Review Workflow",
+    "issueType": "Review",
     "statuses": [
-      { "category": "planning", "status": "open" },
-      { "category": "development", "status": "in work" },
-      { "category": "development", "status": "review" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Open" },
+      { "category": "Development", "status": "In work" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Refactor Workflow",
     "issueType": "refactor",
     "statuses": [
-      { "category": "planning", "status": "planned" },
-      { "category": "development", "status": "review" },
-      { "category": "development", "status": "in progress" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Planned" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Development", "status": "In progress" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Default Workflow",
     "issueType": "",
     "statuses": [
-      { "category": "planning", "status": "design" },
-      { "category": "development", "status": "in work" },
-      { "category": "development", "status": "review" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Design" },
+      { "category": "Development", "status": "In work" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   },
   {
     "name": "Zombie Workflow",
-    "issueType": "zombie",
+    "issueType": "",
     "statuses": [
-      { "category": "planning", "status": "design" },
-      { "category": "planning", "status": "open" },
-      { "category": "development", "status": "in work" },
-      { "category": "planning", "status": "open" },
-      { "category": "development", "status": "in progress" },
-      { "category": "development", "status": "review" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "development", "status": "in progress" },
-      { "category": "planning", "status": "open" },
-      { "category": "development", "status": "in work" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "development", "status": "review" },
-      { "category": "testing", "status": "unit test" },
-      { "category": "testing", "status": "e2e" },
-      { "category": "nonDisplayed", "status": "resolved" },
-      { "category": "nonDisplayed", "status": "closed" }
+      { "category": "Planning", "status": "Design" },
+      { "category": "Planning", "status": "Open" },
+      { "category": "Development", "status": "In work" },
+      { "category": "Planning", "status": "Open" },
+      { "category": "Development", "status": "In progress" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Development", "status": "In progress" },
+      { "category": "Planning", "status": "Open" },
+      { "category": "Development", "status": "In work" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Development", "status": "Review" },
+      { "category": "Testing", "status": "Unit test" },
+      { "category": "Testing", "status": "E2E" },
+      { "category": "Non displayed", "status": "Resolved" },
+      { "category": "Non displayed", "status": "Closed" }
     ]
   }
 ]

@@ -8,7 +8,6 @@ describe('ProjectIF', () => {
       name: 'Project 1',
       description: 'This is project 1',
       issues: [],
-      slaSubscriber: null,
     };
 
     expect(project).toHaveProperty('id');
@@ -25,9 +24,6 @@ describe('ProjectIF', () => {
 
     expect(project).toHaveProperty('issues');
     expect(typeof project.issues).toBe('object');
-
-    expect(project).toHaveProperty('slaSubscriber');
-    expect(typeof project.slaSubscriber).toBe('object');
-    expect(project.slaSubscriber).toBe(null);
+    expect(project.issues).toEqual([]);
   });
 });

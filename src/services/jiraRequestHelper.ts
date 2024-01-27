@@ -107,6 +107,10 @@ export async function searchNewestIssues(projectKey: string, amount: number): Pr
  *
  * @returns {Promise<ProjectIF>} will return the project as a ProjectIF or a rejected promise
  */
-export async function fetchProject(): Promise<ProjectIF> {
-  return mockDataProject;
+export async function fetchProject(projectId: number): Promise<ProjectIF> {
+  const projectNumber = projectId;
+  if (projectNumber !== 0 && projectNumber <= 20) {
+    return getProject(projectNumber);
+  }
+  return getProject(1);
 }

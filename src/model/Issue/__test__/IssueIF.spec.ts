@@ -7,6 +7,8 @@ describe('IssueIF', () => {
       id: 1,
       name: 'Issue 1',
       description: 'This is issue 1',
+      priority: 'high',
+      issueType: 'bug',
       assignedTo: {
         id: 1,
         firstName: 'John',
@@ -25,7 +27,6 @@ describe('IssueIF', () => {
       statusRestingTime: null,
       statusChanges: [],
       assigneeChanges: [],
-      assignedSlaRule: [],
       state: 'open',
     };
 
@@ -40,6 +41,14 @@ describe('IssueIF', () => {
     expect(issue).toHaveProperty('description');
     expect(typeof issue.description).toBe('string');
     expect(issue.description).toBe('This is issue 1');
+
+    expect(issue).toHaveProperty('priority');
+    expect(typeof issue.priority).toBe('string');
+    expect(issue.priority).toBe('high');
+
+    expect(issue).toHaveProperty('issueType');
+    expect(typeof issue.issueType).toBe('string');
+    expect(issue.issueType).toBe('bug');
 
     expect(issue).toHaveProperty('assignedTo');
     expect(typeof issue.assignedTo).toBe('object');
@@ -75,8 +84,5 @@ describe('IssueIF', () => {
 
     expect(issue).toHaveProperty('assigneeChanges');
     expect(typeof issue.assigneeChanges).toBe('object');
-
-    expect(issue).toHaveProperty('assignedSlaRule');
-    expect(typeof issue.assignedSlaRule).toBe('object');
   });
 });
