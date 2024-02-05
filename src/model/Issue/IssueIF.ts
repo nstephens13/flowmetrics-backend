@@ -1,9 +1,8 @@
 import type { DurationLikeObject } from 'luxon';
-import type { EmployeeIF } from '../EmployeeIF';
-import type { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
-import type { EmployeeJiraDTO } from '@/model/EmployeeIF';
-import type { ResponseChangelog } from '@/services/jiraResponseParser';
-import type { Category } from '@/__mockdata__/IssueProps/statusLists';
+import type { EmployeeIF, EmployeeJiraDTO } from '../EmployeeIF';
+import type { ChangeLogIF } from './ChangeLogIF';
+import type { ResponseChangelog } from '../../services/jiraResponseParser';
+import type { Category } from '../../__mockdata__/IssueProps/statusLists';
 
 /**
  *

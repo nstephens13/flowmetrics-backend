@@ -1,7 +1,7 @@
 import type { DurationLikeObject } from 'luxon';
-import type { EmployeeIF } from '@/model/EmployeeIF';
-import type { IssueIF } from '@/model/Issue/IssueIF';
-import type { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
+import type { EmployeeIF } from '../model/EmployeeIF';
+import type { IssueIF } from '../model/Issue/IssueIF';
+import type { ChangeLogIF } from '../model/Issue/ChangeLogIF';
 
 // Issue Class implements IssueIF
 class Issue implements IssueIF {

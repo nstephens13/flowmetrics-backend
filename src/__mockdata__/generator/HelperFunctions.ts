@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import type { EmployeeIF } from '@/model/EmployeeIF';
-import EmployeesJsonData from '@/__mockdata__/json/Employees.json';
-import IssuesWorkflowsJsonData from '@/__mockdata__/json/IssuesWorkflows.json';
+import type { EmployeeIF } from '../../model/EmployeeIF';
+import EmployeesJsonData from '../json/Employees.json';
+import IssuesWorkflowsJsonData from '../json/IssuesWorkflows.json';
 
 /**
  * Function to generate a random integer between 0 and max (inclusive)

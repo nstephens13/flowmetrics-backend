@@ -1,7 +1,6 @@
-import type { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
-import type { EmployeeIF } from '@/model/EmployeeIF';
-import type { ChangeIF } from '@/model/Issue/ChangeIF';
-import { ChangeType } from '@/model/Issue/ChangeIF';
+import type { ChangeLogIF } from '../../model/Issue/ChangeLogIF';
+import type { EmployeeIF } from '../../model/EmployeeIF';
+import { ChangeType, ChangeIF } from '../../model/Issue/ChangeIF';
 import {
   getRandomEmployee,
   getDatesBetween,
@@ -9,7 +8,7 @@ import {
   getRandomInt,
   getDateAndTimeInPast,
 } from './HelperFunctions';
-import IssueTypes from '@/__mockdata__/IssueProps/issueTypes';
+import IssueTypes from '../IssueProps/issueTypes';
 
 /**
  * Function to generate an array of status changes for a given issue
@@ -82,7 +81,7 @@ export function generateStatusChanges(
  * Function to generate an array of assignee changes for a given issue
  * @param issueType issue type of the issue
  * @param issueNumber issue number
- * @param currentPriority current priority of the issue
+ * @param currentAssignee
  * @param createdDate date the issue was created
  * @returns an array of change logs
  * @author Nived Stephen

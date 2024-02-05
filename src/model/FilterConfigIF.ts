@@ -1,4 +1,4 @@
-import type { ProjectIF } from '@/model/ProjectIF';
+import type { ProjectIF } from './ProjectIF';
 
 export interface ProjectFilterConfigIF {
   projectsWhiteList: ProjectIF[];

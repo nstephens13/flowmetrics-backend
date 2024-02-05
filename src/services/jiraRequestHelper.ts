@@ -2,10 +2,10 @@ import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import * as process from 'process';
 import dotenv from 'dotenv';
-import type { IssueIF } from '@/model/Issue/IssueIF';
-import type { EmployeeIF } from '@/model/EmployeeIF';
+import type { IssueIF } from '../model/Issue/IssueIF';
+import type { EmployeeIF } from '../model/EmployeeIF';
 import { parseEmployee, parseIssue } from './jiraResponseParser';
-import { ProjectIF } from '@/model/ProjectIF';
+import { ProjectIF } from '../model/ProjectIF';
 import getProject from '../__mockdata__/mockdata';
 
 dotenv.config();

@@ -1,16 +1,16 @@
 import { faker } from '@faker-js/faker';
-import type { IssueIF } from '@/model/Issue/IssueIF';
+import type { IssueIF } from '../../model/Issue/IssueIF';
 import {
   getWorkflow,
   getRandomEmployee,
   getRandomInt,
   getDateAndTimeInPast,
   getRandomIntBetween,
-} from '@/__mockdata__/generator/HelperFunctions';
+} from './HelperFunctions';
 import { generateAssigneeChanges, generateStatusChanges } from './ChangeLogGenerator';
-import type { EmployeeIF } from '@/model/EmployeeIF';
+import type { EmployeeIF } from '../../model/EmployeeIF';
 import { Category, getCategory, statusLists } from '../IssueProps/statusLists';
-import getTimeDifference from '@/services/timeCalculator';
+import getTimeDifference from '../../services/timeCalculator';
 import IssueTypes from '../IssueProps/issueTypes';
 import Priority from '../IssueProps/priority';
 

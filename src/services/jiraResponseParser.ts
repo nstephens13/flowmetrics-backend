@@ -1,10 +1,10 @@
 import { DurationLikeObject } from 'luxon';
 import { ChangeType, ChangeIF } from '../model/ChangeIF';
-import type { EmployeeIF } from '@/model/EmployeeIF';
+import type { EmployeeIF } from '../model/EmployeeIF';
 import getTimeDifference from './timeCalculator';
-import { EmployeeJiraDTO } from '@/model/EmployeeIF';
-import { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
-import type { IssueIF, IssueJiraDTO } from '@/model/Issue/IssueIF';
+import { EmployeeJiraDTO } from '../model/EmployeeIF';
+import { ChangeLogIF } from '../model/Issue/ChangeLogIF';
+import type { IssueIF, IssueJiraDTO } from '../model/Issue/IssueIF';
 
 /**
  * @description function to parse the changes of specific changeType to a ChangeLogIF[]

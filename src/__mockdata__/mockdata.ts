@@ -1,4 +1,4 @@
-import type { ProjectIF } from '@/model/ProjectIF';
+import type { ProjectIF } from '../model/ProjectIF';
 import generateProject from './generator/ProjectGenerator';
 
 export default function getProject(projectNumber: number): ProjectIF {

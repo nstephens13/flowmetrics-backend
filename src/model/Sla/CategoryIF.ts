@@ -1,5 +1,5 @@
-import type { ProjectIF } from '@/model/ProjectIF';
-import type { RuleIF } from '@/model/Sla/RuleIF';
+import type { ProjectIF } from '../ProjectIF';
+import type { RuleIF } from './RuleIF';
 
 /**
  * Category Interface

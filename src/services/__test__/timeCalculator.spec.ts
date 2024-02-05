@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { DateTime } from 'luxon';
-import { ChangeLogIF } from '@/model/Issue/ChangeLogIF';
+import { ChangeLogIF } from '../../model/Issue/ChangeLogIF';
 import getTimeDifference from '../timeCalculator';
 
 describe('getTimeDifference', () => {
