@@ -90,7 +90,7 @@ export function generateStatusChanges(
 export function generateAssigneeChanges(
   issueType: string,
   issueNumber: number,
-  currentAssignee: EmployeeIF,
+  currentAssignee: EmployeeIF | null,
   createdDate: Date
 ): ChangeLogIF[] | null {
   const changeLogs: ChangeLogIF[] = [];
@@ -99,8 +99,12 @@ export function generateAssigneeChanges(
     issueType === IssueTypes.zombie
       ? getDatesBetween(createdDate, getDateAndTimeInPast(7), numberofAssigneeChanges)
       : getDatesBetween(createdDate, new Date(), numberofAssigneeChanges);
-  let bufferEmployee1: EmployeeIF = getRandomEmployee(currentAssignee);
-  let bufferEmployee2: EmployeeIF = getRandomEmployee(bufferEmployee1);
+  let bufferEmployee1: EmployeeIF | null = currentAssignee
+    ? getRandomEmployee(currentAssignee)
+    : null;
+  let bufferEmployee2: EmployeeIF | null = bufferEmployee1
+    ? getRandomEmployee(bufferEmployee1)
+    : null;
   for (let i = 0; i < numberofAssigneeChanges; i++) {
     const changeLog: ChangeLogIF = {
       id: issueNumber * 100 + i,
@@ -116,7 +120,7 @@ export function generateAssigneeChanges(
     };
     changeLogs.push(changeLog);
     bufferEmployee1 = bufferEmployee2;
-    bufferEmployee2 = getRandomEmployee(bufferEmployee1);
+    bufferEmployee2 = bufferEmployee1 ? getRandomEmployee(bufferEmployee1) : null;
   }
   return changeLogs;
 }
