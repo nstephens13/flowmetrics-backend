@@ -32,7 +32,7 @@ function getIssue(issueNumber: number, issueTypeNumber: number): IssueIF {
     issueType === IssueTypes.zombie
       ? faker.date.past({ refDate: getDateAndTimeInPast(30) })
       : faker.date.recent({ refDate: getDateAndTimeInPast(4) });
-  const assignedEmployee: EmployeeIF = getRandomEmployee();
+  const assignedEmployee: EmployeeIF | null = issueNumber % 10 === 0 ? null : getRandomEmployee();
   const generatedStatusChanges = generateStatusChanges(
     issueType,
     issueNumber,
