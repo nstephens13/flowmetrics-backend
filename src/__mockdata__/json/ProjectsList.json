@@ -1,0 +1,102 @@
+[
+  {
+    "id": 10001,
+    "name": "InsureTech Portal",
+    "description": "Web portal for insurance technology solutions"
+  },
+  {
+    "id": 10002,
+    "name": "CyberGuard Initiative",
+    "description": "Security enhancement for insurance systems"
+  },
+  {
+    "id": 10003,
+    "name": "ClaimPro Automation",
+    "description": "Automation of insurance claims processing"
+  },
+  {
+    "id": 10004,
+    "name": "InsurData Analytics",
+    "description": "Data analytics for insurance industry trends"
+  },
+  {
+    "id": 10005,
+    "name": "TechUnderwriter Platform",
+    "description": "Underwriting platform with advanced technology"
+  },
+  {
+    "id": 10006,
+    "name": "InsureConnect API",
+    "description": "API integration for insurance services"
+  },
+  {
+    "id": 10007,
+    "name": "RiskIntel Dashboard",
+    "description": "Intelligence dashboard for risk assessment"
+  },
+  {
+    "id": 10008,
+    "name": "PolicyHub System",
+    "description": "Centralized hub for insurance policy management"
+  },
+  {
+    "id": 10009,
+    "name": "InsureCloud Infrastructure",
+    "description": "Cloud-based infrastructure for insurers"
+  },
+  {
+    "id": 10010,
+    "name": "ClaimsBot AI",
+    "description": "Artificial intelligence for automated claims processing"
+  },
+  {
+    "id": 10011,
+    "name": "InsurTech Innovations",
+    "description": "Innovative solutions for the insurance sector"
+  },
+  {
+    "id": 10012,
+    "name": "ITSecure Underwriting",
+    "description": "Security-focused underwriting processes"
+  },
+  {
+    "id": 10013,
+    "name": "DigitalClaims Hub",
+    "description": "Digital hub for streamlined claims management"
+  },
+  {
+    "id": 10014,
+    "name": "InsureTech Analytics",
+    "description": "Advanced analytics for insurance companies"
+  },
+  {
+    "id": 10015,
+    "name": "TechRisk Assessment",
+    "description": "Risk assessment powered by technology"
+  },
+  {
+    "id": 10016,
+    "name": "InsureLink Integration",
+    "description": "Integration solution for insurance providers"
+  },
+  {
+    "id": 10017,
+    "name": "ClaimGuard Security",
+    "description": "Security measures for insurance claims"
+  },
+  {
+    "id": 10018,
+    "name": "InsurTech Solutions Suite",
+    "description": "Comprehensive suite of technology solutions"
+  },
+  {
+    "id": 10019,
+    "name": "PolicyPro Management",
+    "description": "Policy management system for insurers"
+  },
+  {
+    "id": 10020,
+    "name": "DigitalRisk Underwriting",
+    "description": "Digitalized underwriting processes for risk assessment"
+  }
+]
